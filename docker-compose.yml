@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  pg: 
+    image: bitnami/postgresql:latest
+    ports: 
+      - 5432:5432
+    environment:
+      POSTGRESQL_USERNAME: eriket
+      POSTGRESQL_PASSWORD: 1234 
+      POSTGRESQL_DATABASE: findAfriend
