@@ -29,6 +29,9 @@ export class Pet {
   @Column('varchar')
   photo!: string
 
+  @Column('varchar')
+  traits!: string[]
+
   @CreateDateColumn({ name: 'created_at' })
   createdAt!: Date
 
