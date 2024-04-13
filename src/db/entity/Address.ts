@@ -6,6 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm'
 
+import { Organization } from './Organization'
 import { User } from './User'
 
 @Entity()
@@ -32,6 +33,9 @@ export class Address {
   @JoinColumn()
   user!: User
 
-  // @OneToOne(() => Store, (store) => store.address, { nullable: true })
-  // store: Store
+  @OneToOne(() => Organization, (organization) => organization.address, {
+    nullable: true,
+  })
+  @JoinColumn()
+  organization!: Organization
 }
