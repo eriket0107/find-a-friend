@@ -7,9 +7,9 @@ export const dataSource = new DataSource({
   username: 'eriket',
   password: '1234',
   database: 'findAfriend',
-  synchronize: true,
+  synchronize: false,
   logging: true,
-  entities: ['/src/entity'],
-  migrations: ['/src/db/migration'],
+  entities: ['src/db/entity/**/*.ts'],
+  migrations: ['src/db/migration/**/*.ts'],
   subscribers: [],
 })
