@@ -5,10 +5,14 @@ import { ZodError } from 'zod'
 
 import { env } from '@/env'
 
+import { petsRoutes } from './http/pets/routes'
+
 export const app = fastify()
 
 app.register(cors)
 app.register(cookies)
+
+app.register(petsRoutes)
 
 app.setErrorHandler((error, _, reply) => {
   if (error instanceof ZodError) {
