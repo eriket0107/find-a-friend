@@ -24,7 +24,7 @@
 ## Business Rules
 
 - [ ] To list the pets, it is mandatory to inform the city
-- [ ] An ORG needs to have an address and a WhatsApp number (name, address, phone)
+- [ ] An ORG needs to have an address and a WhatsApp number (name, address, phone, cpnj)
 - [ ] It should be possible to list all ORG pets
 - [ ] A pet must be linked to an ORG
 - [ ] The user who wants to adopt will contact the ORG via WhatsApp
