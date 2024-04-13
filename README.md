@@ -19,7 +19,8 @@
 - [ ] It should be possible to filter pets by their characteristics
 - [ ] It should be possible to view details of a pet for adoption (name, photo, description, age, breed)
 - [ ] It should be possible to register as an ORG
-- [ ] It should be possible to log in as an ORG
+- [ ] It should be possible to log in and log out as an ORG
+- [ ] It should be possible to log in and log out as an user
 
 ## Business Rules
 

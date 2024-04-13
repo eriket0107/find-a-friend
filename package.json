@@ -31,6 +31,7 @@
     "@fastify/jwt": "8.0.0",
     "@fastify/multipart": "8.2.0",
     "bcryptjs": "2.4.3",
+    "dayjs": "1.11.10",
     "dotenv": "16.4.5",
     "fastify": "4.26.1",
     "pg": "^8.4.0",
