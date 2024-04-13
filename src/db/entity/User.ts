@@ -1,11 +1,17 @@
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm'
 
-import { Address } from './Adress'
+import { Address } from './Address'
 
 @Entity()
 export class User {
   @PrimaryGeneratedColumn('uuid')
-  id!: number
+  id!: string
 
   @Column({ type: 'varchar', unique: true })
   email!: string
@@ -26,5 +32,6 @@ export class User {
   date!: Date
 
   @OneToOne(() => Address, { cascade: true })
+  @JoinColumn()
   address!: Address
 }

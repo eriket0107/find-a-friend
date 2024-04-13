@@ -1,11 +1,17 @@
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm'
 
 import { User } from './User'
 
 @Entity()
 export class Address {
-  @PrimaryGeneratedColumn()
-  id!: number
+  @PrimaryGeneratedColumn('uuid')
+  id!: string
 
   @Column({ type: 'varchar' })
   street!: string
@@ -23,6 +29,7 @@ export class Address {
   country!: string
 
   @OneToOne(() => User, (user) => user.address, { nullable: true })
+  @JoinColumn()
   user!: User
 
   // @OneToOne(() => Store, (store) => store.address, { nullable: true })
