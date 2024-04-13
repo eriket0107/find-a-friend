@@ -1,9 +1,11 @@
 import {
   Column,
+  CreateDateColumn,
   Entity,
   JoinColumn,
   OneToOne,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm'
 
 import { Organization } from './Organization'
@@ -28,6 +30,12 @@ export class Address {
 
   @Column({ type: 'varchar' })
   country!: string
+
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt!: Date
+
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt!: Date
 
   @OneToOne(() => User, (user) => user.address, { nullable: true })
   @JoinColumn()

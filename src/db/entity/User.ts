@@ -1,9 +1,11 @@
 import {
   Column,
+  CreateDateColumn,
   Entity,
   JoinColumn,
   OneToOne,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm'
 
 import { Address } from './Address'
@@ -16,7 +18,7 @@ export class User {
   @Column({ type: 'varchar', unique: true })
   email!: string
 
-  @Column({ type: 'varchar', unique: true })
+  @Column({ type: 'varchar', unique: true, length: 11 })
   cpf!: string
 
   @Column('varchar')
@@ -33,6 +35,12 @@ export class User {
     default: new Date().toISOString(),
   })
   date!: Date
+
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt!: Date
+
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt!: Date
 
   @OneToOne(() => Address, { cascade: true })
   @JoinColumn()
