@@ -15,7 +15,7 @@ import { Pet } from './Pet'
 @Entity()
 export class Organization {
   @PrimaryGeneratedColumn('uuid')
-  id!: string
+  id?: string
 
   @Column({ type: 'varchar', unique: true })
   name!: string
@@ -27,15 +27,15 @@ export class Organization {
   phone!: string
 
   @CreateDateColumn({ name: 'created_at' })
-  createdAt!: Date
+  created_at?: Date
 
   @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt!: Date
+  updated_at?: Date
 
   @OneToOne(() => Address, { cascade: true })
   @JoinColumn()
   address!: Address
 
   @OneToMany(() => Pet, (pet) => pet.organization)
-  pets!: Pet[]
+  pets?: Pet[]
 }
