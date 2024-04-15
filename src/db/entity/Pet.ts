@@ -39,5 +39,5 @@ export class Pet {
   updated_at?: Date
 
   @ManyToOne(() => Organization, (organization) => organization.pets)
-  organization!: Organization
+  organization?: Organization
 }

@@ -7,9 +7,9 @@ export type PetInput = {
   age: number
   traits: string[]
   photo: string
-  organizationId: string
+  organizationId?: string
 }
 
 export type PetRepository = {
-  create(data: PetInput): Promise<{ pet: Pet }>
+  create(data: PetInput): Promise<Pet>
 }
