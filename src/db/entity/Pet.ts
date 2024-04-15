@@ -12,7 +12,7 @@ import { Organization } from './Organization'
 @Entity()
 export class Pet {
   @PrimaryGeneratedColumn('uuid')
-  id!: string
+  id?: string
 
   @Column('varchar')
   name!: string
@@ -33,10 +33,10 @@ export class Pet {
   traits!: string[]
 
   @CreateDateColumn({ name: 'created_at' })
-  createdAt!: Date
+  created_at?: Date
 
   @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt!: Date
+  updated_at?: Date
 
   @ManyToOne(() => Organization, (organization) => organization.pets)
   organization!: Organization

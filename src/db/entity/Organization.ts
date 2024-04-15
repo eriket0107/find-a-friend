@@ -36,7 +36,6 @@ export class Organization {
   @JoinColumn()
   address!: Address
 
-  @OneToMany(() => Pet, (pets) => pets.id)
-  @JoinColumn()
+  @OneToMany(() => Pet, (pet) => pet.organization)
   pets!: Pet[]
 }

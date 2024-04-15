@@ -1,8 +1,14 @@
 import { Pet } from '@/db/entity/Pet'
 
-type PetInput = Partial<
-  Omit<Pet, 'created_at' | 'id' | 'updated_at' | 'organization'>
->
+export type PetInput = {
+  name: string
+  breed: string
+  description: string
+  age: number
+  traits: string[]
+  photo: string
+  organizationId: string
+}
 
 export type PetRepository = {
   create(data: PetInput): Promise<{ pet: Pet }>
