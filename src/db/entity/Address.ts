@@ -39,11 +39,11 @@ export class Address {
 
   @OneToOne(() => User, (user) => user.address, { nullable: true })
   @JoinColumn()
-  user!: User
+  user?: User
 
   @OneToOne(() => Organization, (organization) => organization.address, {
     nullable: true,
   })
   @JoinColumn()
-  organization!: Organization
+  organization?: Organization
 }

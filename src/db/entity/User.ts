@@ -13,7 +13,7 @@ import { Address } from './Address'
 @Entity()
 export class User {
   @PrimaryGeneratedColumn('uuid')
-  id!: string
+  id?: string
 
   @Column({ type: 'varchar', unique: true })
   email!: string
@@ -24,23 +24,17 @@ export class User {
   @Column('varchar')
   firstName!: string
 
-  @Column({ type: 'varchar', default: null })
-  lastName!: string
+  @Column({ type: 'varchar' })
+  lastName?: string
 
   @Column({ type: 'varchar' })
   phone!: string
 
-  @Column({
-    type: 'date',
-    default: new Date().toISOString(),
-  })
-  date!: Date
-
   @CreateDateColumn({ name: 'created_at' })
-  createdAt!: Date
+  createdAt?: Date
 
   @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt!: Date
+  updatedAt?: Date
 
   @OneToOne(() => Address, { cascade: true })
   @JoinColumn()
