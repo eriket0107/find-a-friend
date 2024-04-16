@@ -1,3 +1,5 @@
+import { hash } from 'bcryptjs'
+
 import { Address } from '@/db/entity/Address'
 import { Organization } from '@/db/entity/Organization'
 import { AddressRepository } from '@/repositories/address-repository'
@@ -5,8 +7,11 @@ import { OrganizationRepository } from '@/repositories/organization-repository'
 
 type CreateOrganizationRequest = {
   name: string
+  email: string
+  password: string
   cnpj: string
-  phone: string
+  whatsapp: string
+
   addressData: Address
 }
 
@@ -23,15 +28,22 @@ export class CreateOrganizationUseCase {
   async execute({
     cnpj,
     name,
-    phone,
+    email,
+    password,
+    whatsapp,
     addressData,
   }: CreateOrganizationRequest): Promise<CreateOrganizationResponse> {
     const address = await this.addressRepository.create(addressData)
+
+    const password_hash = await hash(password, 6)
+
     const organization = await this.organizationRepository.create({
       address,
       cnpj,
       name,
-      phone,
+      whatsapp,
+      email,
+      password: password_hash,
     })
 
     return { organization }
