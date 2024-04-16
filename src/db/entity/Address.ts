@@ -31,11 +31,17 @@ export class Address {
   @Column({ type: 'varchar' })
   country!: string
 
+  @Column({ type: 'float', nullable: true })
+  latitude?: number
+
+  @Column({ type: 'float', nullable: true })
+  longitude?: number
+
   @CreateDateColumn({ name: 'created_at' })
-  createdAt!: Date
+  created_at!: Date
 
   @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt!: Date
+  updated_at!: Date
 
   @OneToOne(() => User, (user) => user.address, { nullable: true })
   @JoinColumn()
