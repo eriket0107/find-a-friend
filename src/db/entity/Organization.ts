@@ -20,11 +20,17 @@ export class Organization {
   @Column({ type: 'varchar', unique: true })
   name!: string
 
+  @Column({ type: 'varchar', unique: true })
+  email!: string
+
+  @Column({ type: 'varchar', unique: true })
+  password!: string
+
   @Column({ type: 'varchar', unique: true, length: 14 })
   cnpj!: string
 
   @Column('varchar')
-  phone!: string
+  whatsapp!: string
 
   @CreateDateColumn({ name: 'created_at' })
   created_at?: Date
