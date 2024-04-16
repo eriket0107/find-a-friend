@@ -14,7 +14,7 @@ import { User } from './User'
 @Entity()
 export class Address {
   @PrimaryGeneratedColumn('uuid')
-  id!: string
+  id?: string
 
   @Column({ type: 'varchar' })
   street!: string
@@ -38,10 +38,10 @@ export class Address {
   longitude?: number
 
   @CreateDateColumn({ name: 'created_at' })
-  created_at!: Date
+  created_at?: Date
 
   @UpdateDateColumn({ name: 'updated_at' })
-  updated_at!: Date
+  updated_at?: Date
 
   @OneToOne(() => User, (user) => user.address, { nullable: true })
   @JoinColumn()
