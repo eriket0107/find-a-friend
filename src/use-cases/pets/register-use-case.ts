@@ -1,4 +1,5 @@
 import { Pet } from '@/db/entity/Pet'
+// import { OrganizationRepository } from '@/repositories/organization-repository'
 import { PetRepository } from '@/repositories/pet-repository'
 
 type RegisterPetsUseCaseRequest = {
@@ -15,7 +16,10 @@ type RegisterPetsUseCaseResponse = {
 }
 
 export class RegisterPetsUseCase {
-  constructor(private petsRepository: PetRepository) {}
+  constructor(
+    private petsRepository: PetRepository,
+    // private organizationRepository: OrganizationRepository,
+  ) {}
 
   async execute({
     age,
@@ -24,8 +28,10 @@ export class RegisterPetsUseCase {
     name,
     photo,
     traits,
+    organizationId,
   }: RegisterPetsUseCaseRequest): Promise<RegisterPetsUseCaseResponse> {
     const pet = await this.petsRepository.create({
+      organizationId,
       age,
       breed,
       description,

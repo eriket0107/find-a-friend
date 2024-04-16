@@ -21,6 +21,6 @@ export class InMemoryPetRepository implements PetRepository {
 
     this.dataBase.push(pet)
 
-    return { pet }
+    return pet
   }
 }

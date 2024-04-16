@@ -5,7 +5,7 @@ import { ZodError } from 'zod'
 
 import { env } from '@/env'
 
-import { petsRoutes } from './http/pets/routes'
+import { petsRoutes } from './http/controllers/pets/routes'
 
 export const app = fastify()
 
