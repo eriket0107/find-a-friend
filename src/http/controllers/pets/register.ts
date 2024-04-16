@@ -2,7 +2,7 @@ import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 
 import { TypeOrmPetRepository } from '@/repositories/typeorm/typeorm-pet-repository'
-import { RegisterPetsUseCase } from '@/use-cases/pets/register-use-case'
+import { RegisterPetsUseCase } from '@/use-cases/register-pets-use-case'
 
 export const register = async (
   request: FastifyRequest,

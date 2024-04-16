@@ -1,9 +1,9 @@
-import { beforeEach, describe, it } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 
 import { InMemoryAddressRepository } from '@/repositories/in-memory/in-memory-address'
 import { InMemoryOrganizationRepository } from '@/repositories/in-memory/in-memory-organization'
 
-import { CreateOrganizationUseCase } from './create-organization-use-case'
+import { CreateOrganizationUseCase } from '.'
 
 let organizationRepository: InMemoryOrganizationRepository
 let addressRepository: InMemoryAddressRepository
@@ -28,7 +28,7 @@ describe('Create Organization Use Case', async () => {
       street: 'Alfredo Balthazar da silveira',
     })
 
-    const organization = await sut.execute({
+    const { organization } = await sut.execute({
       addressData: address,
       cnpj: '89.656.977/0001-75',
       email: 'organization@email.com',
@@ -38,5 +38,8 @@ describe('Create Organization Use Case', async () => {
     })
 
     console.log(organization)
+
+    expect(organization.name).to.toEqual('Organization')
+    expect(organization.address).toEqual(expect.objectContaining(address))
   })
 })
