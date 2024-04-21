@@ -29,7 +29,7 @@ export class Organization {
   @Column({ type: 'varchar', unique: true, length: 14 })
   cnpj!: string
 
-  @Column('varchar')
+  @Column({ type: 'varchar', length: 11 })
   whatsapp!: string
 
   @CreateDateColumn({ name: 'created_at' })
