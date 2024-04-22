@@ -5,10 +5,15 @@ import { OrganizationRepository } from '../organization-repository'
 export class InMemoryOrganizationRepository implements OrganizationRepository {
   private dataBase: Organization[] = []
 
-  async findById(id: string): Promise<Organization> {
-    const organization = this.dataBase.find((data) => data.id === id)
+  async findById(id: string): Promise<Organization | null> {
+    const organization = this.dataBase.find((data) => data.id === id) || null
 
-    if (!organization) throw new Error('Could not find organization')
+    return organization
+  }
+
+  async findByEmail(email: string): Promise<Organization | null> {
+    const organization =
+      this.dataBase.find((data) => data.email === email) || null
 
     return organization
   }

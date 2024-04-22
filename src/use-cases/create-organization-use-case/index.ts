@@ -5,6 +5,8 @@ import { Organization } from '@/db/entity/Organization'
 import { AddressRepository } from '@/repositories/address-repository'
 import { OrganizationRepository } from '@/repositories/organization-repository'
 
+import { OrgAlreadyExistsError } from '../errors/org-already-exists'
+
 type CreateOrganizationRequest = {
   name: string
   email: string
@@ -33,6 +35,11 @@ export class CreateOrganizationUseCase {
     whatsapp,
     addressData,
   }: CreateOrganizationRequest): Promise<CreateOrganizationResponse> {
+    const organizationByEmail =
+      await this.organizationRepository.findByEmail(email)
+
+    if (organizationByEmail) throw new OrgAlreadyExistsError()
+
     const address = await this.addressRepository.create(addressData)
 
     const password_hash = await hash(password, 6)
