@@ -26,7 +26,7 @@ describe('Create Organization Use Case', async () => {
       city: 'Rio de Janeiro',
       state: 'RJ',
       country: 'BRA',
-      postalCode: '22790710',
+      postalCode: '22790-710',
       street: 'Alfredo Balthazar da silveira',
     })
 
@@ -48,7 +48,7 @@ describe('Create Organization Use Case', async () => {
       city: 'Rio de Janeiro',
       state: 'RJ',
       country: 'BRA',
-      postalCode: '22790710',
+      postalCode: '22790-710',
       street: 'Alfredo Balthazar da silveira',
     })
 
@@ -80,7 +80,7 @@ describe('Create Organization Use Case', async () => {
       city: 'Rio de Janeiro',
       state: 'RJ',
       country: 'BRA',
-      postalCode: '22790710',
+      postalCode: '22790-710',
       street: 'Alfredo Balthazar da silveira',
     })
 
