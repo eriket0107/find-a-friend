@@ -1,8 +1,7 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 
-import { TypeOrmPetRepository } from '@/repositories/typeorm/typeorm-pet-repository'
-import { RegisterPetsUseCase } from '@/use-cases/register-pets-use-case'
+import { makePet } from '@/use-cases/fatories/make-pets'
 
 export const register = async (
   request: FastifyRequest,
@@ -20,10 +19,10 @@ export const register = async (
   const { age, breed, description, name, traits, photo, organizationId } =
     registerBodySchema.parse(request.body)
 
-  const PetRepository = new TypeOrmPetRepository()
-  const registerPetsUseCase = new RegisterPetsUseCase(PetRepository)
+  const registerPetsUseCase = makePet()
+
   try {
-    await registerPetsUseCase.execute({
+    const { pet } = await registerPetsUseCase.execute({
       organizationId,
       age,
       breed,
@@ -32,6 +31,8 @@ export const register = async (
       traits,
       photo,
     })
+
+    console.log(pet.organization)
 
     return reply.status(201).send({ message: 'ok' })
   } catch (err) {

@@ -38,6 +38,8 @@ export class Pet {
   @UpdateDateColumn({ name: 'updated_at' })
   updated_at?: Date
 
-  @ManyToOne(() => Organization, (organization) => organization.pets)
+  @ManyToOne(() => Organization, (organization) => organization.pets, {
+    onDelete: 'CASCADE',
+  })
   organization?: Organization
 }

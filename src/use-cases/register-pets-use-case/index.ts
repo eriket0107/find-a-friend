@@ -1,6 +1,8 @@
 import { Pet } from '@/db/entity/Pet'
-// import { OrganizationRepository } from '@/repositories/organization-repository'
+import { OrganizationRepository } from '@/repositories/organization-repository'
 import { PetRepository } from '@/repositories/pet-repository'
+
+import { OrgNotFoundError } from '../errors/org-not-found-error'
 
 type RegisterPetsUseCaseRequest = {
   age: number
@@ -18,7 +20,7 @@ type RegisterPetsUseCaseResponse = {
 export class RegisterPetsUseCase {
   constructor(
     private petsRepository: PetRepository,
-    // private organizationRepository: OrganizationRepository,
+    private organizationRepository: OrganizationRepository,
   ) {}
 
   async execute({
@@ -30,14 +32,19 @@ export class RegisterPetsUseCase {
     traits,
     organizationId,
   }: RegisterPetsUseCaseRequest): Promise<RegisterPetsUseCaseResponse> {
+    const organization =
+      await this.organizationRepository.findById(organizationId)
+
+    if (!organization) throw new OrgNotFoundError()
+
     const pet = await this.petsRepository.create({
-      organizationId,
       age,
       breed,
       description,
       name,
       photo,
       traits,
+      organization,
     })
 
     return { pet }
