@@ -38,9 +38,8 @@ export class Organization {
   @UpdateDateColumn({ name: 'updated_at' })
   updated_at?: Date
 
-  @OneToOne(() => Address, { cascade: true, onDelete: 'CASCADE' })
-  @JoinColumn()
-  address!: Address
+  @OneToOne(() => Address, { cascade: true, onDelete: 'CASCADE', eager: false })
+  address?: Address
 
   @OneToMany(() => Pet, (pet) => pet.organization)
   pets?: Pet[]

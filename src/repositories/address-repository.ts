@@ -1,4 +1,5 @@
 import { Address } from '@/db/entity/Address'
+import { Organization } from '@/db/entity/Organization'
 
 export type AddressInput = {
   street: string
@@ -8,7 +9,7 @@ export type AddressInput = {
   country: string
   latitude?: number
   longitude?: number
-  organizationId?: string
+  organization: Organization
 }
 
 export type AddressRepository = {

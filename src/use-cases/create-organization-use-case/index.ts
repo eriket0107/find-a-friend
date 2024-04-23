@@ -47,7 +47,11 @@ export class CreateOrganizationUseCase {
       whatsapp,
       email,
       password: password_hash,
-      address: addressInput,
+    })
+
+    await this.addressRepository.create({
+      ...addressInput,
+      organization,
     })
 
     return { organization }

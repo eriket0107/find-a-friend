@@ -1,3 +1,4 @@
+import { Organization } from '@/db/entity/Organization'
 import { Pet } from '@/db/entity/Pet'
 
 export type PetInput = {
@@ -7,7 +8,7 @@ export type PetInput = {
   age: number
   traits: string[]
   photo: string
-  organizationId?: string
+  organization?: Organization
 }
 
 export type PetRepository = {
