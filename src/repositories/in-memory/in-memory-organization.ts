@@ -1,3 +1,5 @@
+import { randomUUID } from 'crypto'
+
 import { Organization } from '@/db/entity/Organization'
 
 import { OrganizationRepository } from '../organization-repository'
@@ -20,6 +22,7 @@ export class InMemoryOrganizationRepository implements OrganizationRepository {
 
   async create(data: Organization) {
     const organization = {
+      id: randomUUID(),
       cnpj: data.cnpj,
       name: data.name,
       email: data.email,

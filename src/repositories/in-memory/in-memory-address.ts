@@ -10,7 +10,7 @@ export class InMemoryAddressRepository implements AddressRepository {
       street: data.street,
       city: data.city,
       state: data.state,
-      postalCode: data.postalCode,
+      zipCode: data.zipCode,
       country: data.country,
       latitude: data.latitude,
       longitude: data.longitude,

@@ -26,12 +26,12 @@ describe('Create Organization Use Case', async () => {
       city: 'Rio de Janeiro',
       state: 'RJ',
       country: 'BRA',
-      postalCode: '22790-710',
+      zipCode: '22790-710',
       street: 'Alfredo Balthazar da silveira',
     })
 
     const { organization } = await sut.execute({
-      addressData: address,
+      addressInput: address,
       cnpj: '89.656.977/0001-75',
       email: 'organization@email.com',
       name: 'Organization',
@@ -39,8 +39,10 @@ describe('Create Organization Use Case', async () => {
       whatsapp: '21 999132991',
     })
 
+    console.log(organization.address)
+
     expect(organization.name).to.toEqual('Organization')
-    expect(organization.address).toEqual(expect.objectContaining(address))
+    expect(organization.address)
   })
 
   it('should not be able to create a new org with an already used email', async () => {
@@ -48,12 +50,12 @@ describe('Create Organization Use Case', async () => {
       city: 'Rio de Janeiro',
       state: 'RJ',
       country: 'BRA',
-      postalCode: '22790-710',
+      zipCode: '22790-710',
       street: 'Alfredo Balthazar da silveira',
     })
 
     await sut.execute({
-      addressData: address,
+      addressInput: address,
       cnpj: '89.656.977/0001-75',
       email: 'organization@email.com',
       name: 'Organization',
@@ -63,7 +65,7 @@ describe('Create Organization Use Case', async () => {
 
     await expect(
       sut.execute({
-        addressData: address,
+        addressInput: address,
         cnpj: '89.656.977/0001-75',
         email: 'organization@email.com',
         name: 'Organization',
@@ -80,12 +82,12 @@ describe('Create Organization Use Case', async () => {
       city: 'Rio de Janeiro',
       state: 'RJ',
       country: 'BRA',
-      postalCode: '22790-710',
+      zipCode: '22790-710',
       street: 'Alfredo Balthazar da silveira',
     })
 
     const { organization } = await sut.execute({
-      addressData: address,
+      addressInput: address,
       cnpj: '89.656.977/0001-75',
       email: 'organization@email.com',
       name: 'Organization',

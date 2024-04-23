@@ -13,8 +13,7 @@ type CreateOrganizationRequest = {
   password: string
   cnpj: string
   whatsapp: string
-
-  addressData: Address
+  addressInput: Address
 }
 
 type CreateOrganizationResponse = {
@@ -33,24 +32,22 @@ export class CreateOrganizationUseCase {
     email,
     password,
     whatsapp,
-    addressData,
+    addressInput,
   }: CreateOrganizationRequest): Promise<CreateOrganizationResponse> {
     const organizationByEmail =
       await this.organizationRepository.findByEmail(email)
 
     if (organizationByEmail) throw new OrgAlreadyExistsError()
 
-    const address = await this.addressRepository.create(addressData)
-
     const password_hash = await hash(password, 6)
 
     const organization = await this.organizationRepository.create({
-      address,
       cnpj,
       name,
       whatsapp,
       email,
       password: password_hash,
+      address: addressInput,
     })
 
     return { organization }

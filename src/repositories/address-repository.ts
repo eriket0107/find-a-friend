@@ -4,10 +4,11 @@ export type AddressInput = {
   street: string
   city: string
   state: string
-  postalCode: string
+  zipCode: string
   country: string
   latitude?: number
   longitude?: number
+  organizationId?: string
 }
 
 export type AddressRepository = {

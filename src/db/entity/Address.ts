@@ -2,14 +2,12 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm'
 
 import { Organization } from './Organization'
-import { User } from './User'
 
 @Entity()
 export class Address {
@@ -26,7 +24,7 @@ export class Address {
   state!: string
 
   @Column({ type: 'varchar' })
-  postalCode!: string
+  zipCode!: string
 
   @Column({ type: 'varchar' })
   country!: string
@@ -43,13 +41,8 @@ export class Address {
   @UpdateDateColumn({ name: 'updated_at' })
   updated_at?: Date
 
-  @OneToOne(() => User, (user) => user.address, { nullable: true })
-  @JoinColumn()
-  user?: User
-
   @OneToOne(() => Organization, (organization) => organization.address, {
     nullable: true,
   })
-  @JoinColumn({ foreignKeyConstraintName: 'organizationId' })
   organization?: Organization
 }
