@@ -50,6 +50,6 @@ export class Address {
   @OneToOne(() => Organization, (organization) => organization.address, {
     nullable: true,
   })
-  @JoinColumn()
+  @JoinColumn({ foreignKeyConstraintName: 'organizationId' })
   organization?: Organization
 }

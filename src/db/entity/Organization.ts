@@ -38,7 +38,7 @@ export class Organization {
   @UpdateDateColumn({ name: 'updated_at' })
   updated_at?: Date
 
-  @OneToOne(() => Address, { cascade: true })
+  @OneToOne(() => Address, { cascade: true, onDelete: 'CASCADE' })
   @JoinColumn()
   address!: Address
 

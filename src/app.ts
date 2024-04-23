@@ -5,6 +5,7 @@ import { ZodError } from 'zod'
 
 import { env } from '@/env'
 
+import { organizationRoutes } from './http/controllers/organizations/routes'
 import { petsRoutes } from './http/controllers/pets/routes'
 
 export const app = fastify()
@@ -13,6 +14,7 @@ app.register(cors)
 app.register(cookies)
 
 app.register(petsRoutes)
+app.register(organizationRoutes)
 
 app.setErrorHandler((error, _, reply) => {
   if (error instanceof ZodError) {
