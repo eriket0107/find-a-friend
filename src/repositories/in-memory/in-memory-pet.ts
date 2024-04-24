@@ -20,4 +20,12 @@ export class InMemoryPetRepository implements PetRepository {
 
     return pet
   }
+
+  async list(organizationId: string): Promise<Pet[]> {
+    const pets = this.dataBase.filter(
+      (data) => data.organization?.id === organizationId,
+    )
+
+    return pets
+  }
 }

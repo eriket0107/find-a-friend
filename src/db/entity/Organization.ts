@@ -16,7 +16,7 @@ import { Pet } from './Pet'
 @Entity()
 export class Organization {
   @PrimaryGeneratedColumn('uuid')
-  id?: string
+  id!: string
 
   @Column({ type: 'varchar', unique: true })
   name!: string

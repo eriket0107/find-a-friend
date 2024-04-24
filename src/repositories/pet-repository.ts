@@ -13,4 +13,5 @@ export type PetInput = {
 
 export type PetRepository = {
   create(data: PetInput): Promise<Pet>
+  list(organizationId: string): Promise<Pet[]>
 }
