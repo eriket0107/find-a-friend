@@ -15,7 +15,7 @@
 ## Application Rules
 
 - [X] It should be possible to register a pet
-- [ ] It should be possible to list all pets available for adoption in a Org
+- [X] It should be possible to list all pets available for adoption in a Org
 - [ ] It should be possible to list all pets available for adoption in a City
 - [ ] It should be possible to filter pets by their characteristics
 - [ ] It should be possible to view details of a pet for adoption (name, photo, description, age, breed)
@@ -27,9 +27,9 @@
 ## Business Rules
 
 - [ ] To list the pets, it is mandatory to inform the city
-- [ ] An ORG needs to have an address and a WhatsApp number (name, address, phone, cpnj)
+- [X] An ORG needs to have an address and a WhatsApp number (name, address, phone, cpnj)
 - [ ] It should be possible to list all ORG pets
-- [ ] A pet must be linked to an ORG
+- [X] A pet must be linked to an ORG
 - [ ] The user who wants to adopt will contact the ORG via WhatsApp
 - [ ] All filters, except for the city, are optional
 - [ ] For an ORG to access the application as an admin, it needs to be logged in

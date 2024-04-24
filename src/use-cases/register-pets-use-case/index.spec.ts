@@ -45,7 +45,7 @@ describe('Register Pet Use Case', async () => {
       name: 'Dog',
       photo: 'teste.png',
       traits: ['Brincalhão', 'Fofo'],
-      organizationId: organization.id as string,
+      organizationId: organization.id,
     })
 
     expect(pet.name).toEqual('Dog')
