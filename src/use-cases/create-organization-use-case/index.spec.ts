@@ -33,7 +33,8 @@ describe('Create Organization Use Case', async () => {
       whatsapp: '21999132991',
     })
 
-    console.log(organization)
+    expect(organization.name).toEqual(expect.any(String))
+    expect(organization.address).toEqual(address)
   })
 
   it('should not be able to create a new org with an already used email', async () => {
