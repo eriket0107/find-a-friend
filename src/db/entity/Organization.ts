@@ -9,6 +9,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm'
 
+import { Roles } from './@types/roles'
 import { Address } from './Address'
 import { Pet } from './Pet'
 
@@ -31,6 +32,9 @@ export class Organization {
 
   @Column({ type: 'varchar', length: 11 })
   whatsapp!: string
+
+  @Column({ type: 'varchar', default: [Roles.ORG], enum: Roles })
+  role?: string
 
   @CreateDateColumn({ name: 'created_at' })
   created_at?: Date

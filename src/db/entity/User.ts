@@ -8,6 +8,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm'
 
+import { Roles } from './@types/roles'
 import { Address } from './Address'
 
 @Entity()
@@ -29,6 +30,9 @@ export class User {
 
   @Column({ type: 'varchar' })
   phone!: string
+
+  @Column({ type: 'varchar', default: [Roles.USER], enum: Roles })
+  role?: string
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt?: Date

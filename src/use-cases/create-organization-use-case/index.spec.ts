@@ -20,7 +20,7 @@ describe('Create Organization Use Case', async () => {
       city: 'Rio de Janeiro',
       state: 'RJ',
       country: 'BRA',
-      zipCode: '22790-710',
+      zipCode: '22790710',
       street: 'Alfredo Balthazar da silveira',
     }
 
@@ -33,7 +33,7 @@ describe('Create Organization Use Case', async () => {
       whatsapp: '21999132991',
     })
 
-    expect(organization.name).toEqual(expect.any(String))
+    expect(organization.name).toEqual('Organization')
     expect(organization.address).toEqual(address)
   })
 
@@ -42,13 +42,13 @@ describe('Create Organization Use Case', async () => {
       city: 'Rio de Janeiro',
       state: 'RJ',
       country: 'BRA',
-      zipCode: '22790-710',
+      zipCode: '22790710',
       street: 'Alfredo Balthazar da silveira',
     }
 
     await sut.execute({
       address,
-      cnpj: '89.656.977/0001-75',
+      cnpj: '89656977000175',
       email: 'organization@email.com',
       name: 'Organization',
       password: '123456',
@@ -58,7 +58,7 @@ describe('Create Organization Use Case', async () => {
     await expect(
       sut.execute({
         address,
-        cnpj: '89.656.977/0001-75',
+        cnpj: '89656977000175',
         email: 'organization@email.com',
         name: 'Organization',
         password: '123456',
@@ -74,13 +74,13 @@ describe('Create Organization Use Case', async () => {
       city: 'Rio de Janeiro',
       state: 'RJ',
       country: 'BRA',
-      zipCode: '22790-710',
+      zipCode: '22790710',
       street: 'Alfredo Balthazar da silveira',
     }
 
     const { organization } = await sut.execute({
       address,
-      cnpj: '89.656.977/0001-75',
+      cnpj: '89656977000175',
       email: 'organization@email.com',
       name: 'Organization',
       password,
