@@ -6,8 +6,6 @@ export class InMemoryPetRepository implements PetRepository {
   private dataBase: Pet[] = []
 
   async create(data: PetInput) {
-    // TODO: organization call
-
     const pet = {
       name: data.name,
       breed: data.breed,
@@ -15,8 +13,7 @@ export class InMemoryPetRepository implements PetRepository {
       age: data.age,
       traits: data.traits,
       photo: data.photo,
-      // TODO: organization call
-      // organization: 'teste',
+      organization: data.organization,
     }
 
     this.dataBase.push(pet)
