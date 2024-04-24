@@ -2,6 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
@@ -38,7 +39,8 @@ export class Organization {
   updated_at?: Date
 
   @OneToOne(() => Address, { cascade: true, onDelete: 'CASCADE', eager: false })
-  address?: Address
+  @JoinColumn()
+  address!: Address
 
   @OneToMany(() => Pet, (pet) => pet.organization)
   pets?: Pet[]

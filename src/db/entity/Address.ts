@@ -2,7 +2,6 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -47,6 +46,5 @@ export class Address {
     onDelete: 'CASCADE',
     eager: false,
   })
-  @JoinColumn()
   organization?: Organization
 }

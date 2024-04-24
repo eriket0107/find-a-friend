@@ -33,7 +33,7 @@ export const create = async (request: FastifyRequest, reply: FastifyReply) => {
       password,
       cnpj,
       whatsapp,
-      addressInput: address,
+      address,
     })
 
     return reply.status(201).send({ message: 'ok' })

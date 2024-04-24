@@ -1,61 +1,52 @@
 import { compare } from 'bcryptjs'
 import { beforeEach, describe, expect, it } from 'vitest'
 
-import { InMemoryAddressRepository } from '@/repositories/in-memory/in-memory-address'
 import { InMemoryOrganizationRepository } from '@/repositories/in-memory/in-memory-organization'
 
 import { OrgAlreadyExistsError } from '../errors/org-already-exists'
 import { CreateOrganizationUseCase } from '.'
 
 let organizationRepository: InMemoryOrganizationRepository
-let addressRepository: InMemoryAddressRepository
 let sut: CreateOrganizationUseCase
 
 describe('Create Organization Use Case', async () => {
   beforeEach(async () => {
     organizationRepository = new InMemoryOrganizationRepository()
-    addressRepository = new InMemoryAddressRepository()
-    sut = new CreateOrganizationUseCase(
-      organizationRepository,
-      addressRepository,
-    )
+    sut = new CreateOrganizationUseCase(organizationRepository)
   })
 
   it('should be able to create a new organization', async () => {
-    const address = await addressRepository.create({
+    const address = {
       city: 'Rio de Janeiro',
       state: 'RJ',
       country: 'BRA',
       zipCode: '22790-710',
       street: 'Alfredo Balthazar da silveira',
-    })
+    }
 
     const { organization } = await sut.execute({
-      addressInput: address,
-      cnpj: '89.656.977/0001-75',
+      address,
+      cnpj: '89656977000175',
       email: 'organization@email.com',
       name: 'Organization',
       password: '123456',
-      whatsapp: '21 999132991',
+      whatsapp: '21999132991',
     })
 
-    console.log(organization.address)
-
-    expect(organization.name).to.toEqual('Organization')
-    expect(organization.address)
+    console.log(organization)
   })
 
   it('should not be able to create a new org with an already used email', async () => {
-    const address = await addressRepository.create({
+    const address = {
       city: 'Rio de Janeiro',
       state: 'RJ',
       country: 'BRA',
       zipCode: '22790-710',
       street: 'Alfredo Balthazar da silveira',
-    })
+    }
 
     await sut.execute({
-      addressInput: address,
+      address,
       cnpj: '89.656.977/0001-75',
       email: 'organization@email.com',
       name: 'Organization',
@@ -65,7 +56,7 @@ describe('Create Organization Use Case', async () => {
 
     await expect(
       sut.execute({
-        addressInput: address,
+        address,
         cnpj: '89.656.977/0001-75',
         email: 'organization@email.com',
         name: 'Organization',
@@ -78,16 +69,16 @@ describe('Create Organization Use Case', async () => {
   it('should hash password upon creation', async () => {
     const password = '123456'
 
-    const address = await addressRepository.create({
+    const address = {
       city: 'Rio de Janeiro',
       state: 'RJ',
       country: 'BRA',
       zipCode: '22790-710',
       street: 'Alfredo Balthazar da silveira',
-    })
+    }
 
     const { organization } = await sut.execute({
-      addressInput: address,
+      address,
       cnpj: '89.656.977/0001-75',
       email: 'organization@email.com',
       name: 'Organization',

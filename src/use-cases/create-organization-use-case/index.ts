@@ -2,7 +2,6 @@ import { hash } from 'bcryptjs'
 
 import { Address } from '@/db/entity/Address'
 import { Organization } from '@/db/entity/Organization'
-import { AddressRepository } from '@/repositories/address-repository'
 import { OrganizationRepository } from '@/repositories/organization-repository'
 
 import { OrgAlreadyExistsError } from '../errors/org-already-exists'
@@ -13,7 +12,7 @@ type CreateOrganizationRequest = {
   password: string
   cnpj: string
   whatsapp: string
-  addressInput: Address
+  address: Address
 }
 
 type CreateOrganizationResponse = {
@@ -21,10 +20,7 @@ type CreateOrganizationResponse = {
 }
 
 export class CreateOrganizationUseCase {
-  constructor(
-    private organizationRepository: OrganizationRepository,
-    private addressRepository: AddressRepository,
-  ) {}
+  constructor(private organizationRepository: OrganizationRepository) {}
 
   async execute({
     cnpj,
@@ -32,7 +28,7 @@ export class CreateOrganizationUseCase {
     email,
     password,
     whatsapp,
-    addressInput,
+    address,
   }: CreateOrganizationRequest): Promise<CreateOrganizationResponse> {
     const organizationByEmail =
       await this.organizationRepository.findByEmail(email)
@@ -47,11 +43,7 @@ export class CreateOrganizationUseCase {
       whatsapp,
       email,
       password: password_hash,
-    })
-
-    await this.addressRepository.create({
-      ...addressInput,
-      organization,
+      address,
     })
 
     return { organization }
