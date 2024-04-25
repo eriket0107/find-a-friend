@@ -48,6 +48,7 @@ describe('List Pets in a organization Use Case', async () => {
       name: 'Beto',
       photo: 'teste.png',
       traits: ['Brincalhão', 'Fofo'],
+      size: 'small',
       organization,
     })
 
@@ -83,6 +84,7 @@ describe('List Pets in a organization Use Case', async () => {
       name: 'Beto',
       photo: 'teste.png',
       traits: ['Brincalhão', 'Fofo'],
+      size: 'medium',
       organization,
     })
 
@@ -94,6 +96,7 @@ describe('List Pets in a organization Use Case', async () => {
       name: 'Sandro',
       photo: 'teste1.png',
       traits: ['Brincalhão', 'Fofo'],
+      size: 'big',
       organization,
     })
 

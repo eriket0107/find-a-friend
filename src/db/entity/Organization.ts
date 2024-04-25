@@ -37,7 +37,7 @@ export class Organization {
   phone!: string
 
   @Column({ type: 'varchar', default: [Roles.ORG], enum: Roles })
-  role?: string
+  role?: Roles
 
   @CreateDateColumn({ name: 'created_at' })
   created_at?: Date

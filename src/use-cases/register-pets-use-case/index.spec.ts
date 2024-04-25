@@ -45,6 +45,7 @@ describe('Register Pet Use Case', async () => {
       name: 'Dog',
       photo: 'teste.png',
       traits: ['Brincalhão', 'Fofo'],
+      size: 'small',
       organizationId: organization.id,
     })
 
@@ -63,6 +64,7 @@ describe('Register Pet Use Case', async () => {
         name: 'Dog',
         photo: 'teste',
         traits: ['Brincalhão', 'Fofo'],
+        size: 'small',
         organizationId: '1',
       }),
     ).rejects.to.toBeInstanceOf(OrgNotFoundError)

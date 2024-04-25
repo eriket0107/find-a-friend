@@ -2,12 +2,12 @@ import { randomUUID } from 'node:crypto'
 
 import { Pet } from '@/db/entity/Pet'
 
-import { PetInput, PetRepository } from '../pet-repository'
+import { PetRepository } from '../pet-repository'
 
 export class InMemoryPetRepository implements PetRepository {
   private dataBase: Pet[] = []
 
-  async create(data: PetInput) {
+  async create(data: Pet) {
     const pet = {
       id: randomUUID(),
       ...data,

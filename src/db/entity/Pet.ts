@@ -7,6 +7,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm'
 
+import { Size } from './@types/size'
 import { Organization } from './Organization'
 
 @Entity()
@@ -19,6 +20,9 @@ export class Pet {
 
   @Column('varchar')
   breed!: string
+
+  @Column({ type: 'varchar', enum: Size, nullable: true })
+  size!: string
 
   @Column('varchar')
   description!: string

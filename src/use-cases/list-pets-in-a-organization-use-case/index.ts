@@ -4,11 +4,11 @@ import { PetRepository } from '@/repositories/pet-repository'
 
 import { OrgNotFoundError } from '../errors/org-not-found-error'
 
-type ListPetsInAOrganizationRequest = {
+type ListPetsInAOrganizationUseCaseRequest = {
   organizationId: string
 }
 
-type ListPetsInAOrganizationResponse = {
+type ListPetsInAOrganizationUseCaseResponse = {
   pets: Pet[]
 }
 
@@ -20,13 +20,13 @@ export class ListPetsInAOrganizationUseCase {
 
   async execute({
     organizationId,
-  }: ListPetsInAOrganizationRequest): Promise<ListPetsInAOrganizationResponse> {
+  }: ListPetsInAOrganizationUseCaseRequest): Promise<ListPetsInAOrganizationUseCaseResponse> {
     const organization =
       await this.organizationRepository.findById(organizationId)
 
     if (!organization) throw new OrgNotFoundError()
 
-    const pets = await this.petRepository.list(organization.id)
+    const pets = await this.petRepository.list(organization.id as string)
 
     return { pets }
   }

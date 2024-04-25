@@ -15,8 +15,9 @@ export const register = async (
     traits: z.array(z.string()),
     photo: z.string(),
     organizationId: z.string(),
+    size: z.enum(['small', 'medium', 'big', 'giant']),
   })
-  const { age, breed, description, name, traits, photo, organizationId } =
+  const { age, breed, description, name, traits, photo, organizationId, size } =
     registerBodySchema.parse(request.body)
 
   const registerPetsUseCase = makePet()
@@ -30,6 +31,7 @@ export const register = async (
       name,
       traits,
       photo,
+      size,
     })
 
     return reply.status(201).send({ message: 'ok' })

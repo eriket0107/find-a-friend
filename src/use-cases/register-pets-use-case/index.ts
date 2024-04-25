@@ -11,6 +11,7 @@ type RegisterPetsUseCaseRequest = {
   name: string
   traits: string[]
   photo: string
+  size: string
   organizationId: string
 }
 type RegisterPetsUseCaseResponse = {
@@ -30,6 +31,7 @@ export class RegisterPetsUseCase {
     name,
     photo,
     traits,
+    size,
     organizationId,
   }: RegisterPetsUseCaseRequest): Promise<RegisterPetsUseCaseResponse> {
     const organization =
@@ -45,6 +47,7 @@ export class RegisterPetsUseCase {
       photo,
       traits,
       organization,
+      size,
     })
 
     return { pet }

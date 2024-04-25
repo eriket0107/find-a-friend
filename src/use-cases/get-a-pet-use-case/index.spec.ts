@@ -45,6 +45,7 @@ describe('Register Pet Use Case', async () => {
       name: 'Dog',
       photo: 'teste.png',
       traits: ['Brincalhão', 'Fofo'],
+      size: 'giant',
       organization,
     })
 
