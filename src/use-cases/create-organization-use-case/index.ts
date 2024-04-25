@@ -11,7 +11,7 @@ type CreateOrganizationRequest = {
   email: string
   password: string
   cnpj: string
-  whatsapp: string
+  phone: string
   address: Address
 }
 
@@ -27,7 +27,7 @@ export class CreateOrganizationUseCase {
     name,
     email,
     password,
-    whatsapp,
+    phone,
     address,
   }: CreateOrganizationRequest): Promise<CreateOrganizationResponse> {
     const organizationByEmail =
@@ -40,7 +40,8 @@ export class CreateOrganizationUseCase {
     const organization = await this.organizationRepository.create({
       cnpj,
       name,
-      whatsapp,
+      whatsapp: `https://wa.me/+55${phone}`,
+      phone,
       email,
       password: password_hash,
       address,

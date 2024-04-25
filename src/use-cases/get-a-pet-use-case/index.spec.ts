@@ -34,7 +34,7 @@ describe('Register Pet Use Case', async () => {
       email: 'organization@email.com',
       name: 'Organization',
       password: '123456',
-      whatsapp: '21999132991',
+      phone: '21999132991',
     })
 
     const petToGet = await petRepository.create({

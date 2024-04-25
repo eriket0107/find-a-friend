@@ -16,7 +16,7 @@ import { Pet } from './Pet'
 @Entity()
 export class Organization {
   @PrimaryGeneratedColumn('uuid')
-  id!: string
+  id?: string
 
   @Column({ type: 'varchar', unique: true })
   name!: string
@@ -30,8 +30,11 @@ export class Organization {
   @Column({ type: 'varchar', unique: true, length: 14 })
   cnpj!: string
 
+  @Column({ type: 'varchar' })
+  whatsapp?: string
+
   @Column({ type: 'varchar', length: 11 })
-  whatsapp!: string
+  phone!: string
 
   @Column({ type: 'varchar', default: [Roles.ORG], enum: Roles })
   role?: string

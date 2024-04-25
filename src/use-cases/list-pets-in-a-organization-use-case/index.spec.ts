@@ -37,7 +37,7 @@ describe('List Pets in a organization Use Case', async () => {
       email: 'organization@email.com',
       name: 'Organization',
       password: '123456',
-      whatsapp: '21999132991',
+      phone: '21999132991',
     })
 
     await petRepository.create({
@@ -72,7 +72,7 @@ describe('List Pets in a organization Use Case', async () => {
       email: 'organization@email.com',
       name: 'Organization',
       password: '123456',
-      whatsapp: '21999132991',
+      phone: '21999132991',
     })
 
     await petRepository.create({

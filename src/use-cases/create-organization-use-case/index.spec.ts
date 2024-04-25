@@ -30,7 +30,7 @@ describe('Create Organization Use Case', async () => {
       email: 'organization@email.com',
       name: 'Organization',
       password: '123456',
-      whatsapp: '21999132991',
+      phone: '21999132991',
     })
 
     expect(organization.name).toEqual('Organization')
@@ -52,7 +52,7 @@ describe('Create Organization Use Case', async () => {
       email: 'organization@email.com',
       name: 'Organization',
       password: '123456',
-      whatsapp: '21 999132991',
+      phone: '21999132991',
     })
 
     await expect(
@@ -62,7 +62,7 @@ describe('Create Organization Use Case', async () => {
         email: 'organization@email.com',
         name: 'Organization',
         password: '123456',
-        whatsapp: '21 999132991',
+        phone: '21999132991',
       }),
     ).rejects.toBeInstanceOf(OrgAlreadyExistsError)
   })
@@ -84,7 +84,7 @@ describe('Create Organization Use Case', async () => {
       email: 'organization@email.com',
       name: 'Organization',
       password,
-      whatsapp: '21 999132991',
+      phone: '21999132991',
     })
 
     expect(await compare(password, organization.password)).toBe(true)

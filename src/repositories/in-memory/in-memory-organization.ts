@@ -23,12 +23,7 @@ export class InMemoryOrganizationRepository implements OrganizationRepository {
   async create(data: Organization) {
     const organization = {
       id: randomUUID(),
-      cnpj: data.cnpj,
-      name: data.name,
-      email: data.email,
-      password: data.password,
-      whatsapp: data.whatsapp,
-      address: data.address,
+      ...data,
     }
 
     this.dataBase.push(organization)
