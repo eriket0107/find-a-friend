@@ -4,7 +4,7 @@ import { Address } from '@/db/entity/Address'
 import { Organization } from '@/db/entity/Organization'
 import { OrganizationRepository } from '@/repositories/organization-repository'
 
-import { OrgAlreadyExistsError } from '../errors/org-already-exists'
+import { OrgAlreadyExistsError } from '../errors/org-already-exists-error'
 
 type CreateOrganizationRequest = {
   name: string

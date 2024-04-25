@@ -13,5 +13,6 @@ export type PetInput = {
 
 export type PetRepository = {
   create(data: PetInput): Promise<Pet>
+  findById(petId: string): Promise<Pet | null>
   list(organizationId: string): Promise<Pet[]>
 }

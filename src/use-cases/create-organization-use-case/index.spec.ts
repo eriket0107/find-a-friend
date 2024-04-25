@@ -3,7 +3,7 @@ import { beforeEach, describe, expect, it } from 'vitest'
 
 import { InMemoryOrganizationRepository } from '@/repositories/in-memory/in-memory-organization'
 
-import { OrgAlreadyExistsError } from '../errors/org-already-exists'
+import { OrgAlreadyExistsError } from '../errors/org-already-exists-error'
 import { CreateOrganizationUseCase } from '.'
 
 let organizationRepository: InMemoryOrganizationRepository

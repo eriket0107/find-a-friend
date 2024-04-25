@@ -13,4 +13,16 @@ export class TypeOrmPetRepository implements PetRepository {
 
     return pet
   }
+
+  async findById(petId: string): Promise<Pet | null> {
+    const pet = await this.repository.findOne({ where: { id: petId } })
+
+    return pet
+  }
+
+  async list(organizationId: string): Promise<Pet[]> {
+    const pets = await this.repository.find({ where: { id: organizationId } })
+
+    return pets
+  }
 }

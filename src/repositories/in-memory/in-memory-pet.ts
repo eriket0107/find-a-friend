@@ -1,3 +1,5 @@
+import { randomUUID } from 'node:crypto'
+
 import { Pet } from '@/db/entity/Pet'
 
 import { PetInput, PetRepository } from '../pet-repository'
@@ -7,13 +9,8 @@ export class InMemoryPetRepository implements PetRepository {
 
   async create(data: PetInput) {
     const pet = {
-      name: data.name,
-      breed: data.breed,
-      description: data.description,
-      age: data.age,
-      traits: data.traits,
-      photo: data.photo,
-      organization: data.organization,
+      id: randomUUID(),
+      ...data,
     }
 
     this.dataBase.push(pet)
@@ -21,11 +18,13 @@ export class InMemoryPetRepository implements PetRepository {
     return pet
   }
 
+  async findById(petId: string): Promise<Pet | null> {
+    return this.dataBase.find((pet) => pet.id === petId) ?? null
+  }
+
   async list(organizationId: string): Promise<Pet[]> {
-    const pets = this.dataBase.filter(
+    return this.dataBase.filter(
       (data) => data.organization?.id === organizationId,
     )
-
-    return pets
   }
 }
