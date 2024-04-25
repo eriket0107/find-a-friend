@@ -30,7 +30,7 @@ export class Organization {
   @Column({ type: 'varchar', unique: true, length: 14 })
   cnpj!: string
 
-  @Column({ type: 'varchar' })
+  @Column({ type: 'varchar', nullable: true })
   whatsapp?: string
 
   @Column({ type: 'varchar', length: 11 })

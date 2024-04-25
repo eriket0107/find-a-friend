@@ -9,7 +9,7 @@ export const create = async (request: FastifyRequest, reply: FastifyReply) => {
     email: z.string().email(),
     password: z.string(),
     cnpj: z.string().length(14, { message: 'must have cnpj correct length' }),
-    whatsapp: z
+    phone: z
       .string()
       .length(11, { message: 'must have whatsapp correct length' }),
     address: z.object({
@@ -21,7 +21,7 @@ export const create = async (request: FastifyRequest, reply: FastifyReply) => {
     }),
   })
 
-  const { name, email, password, cnpj, whatsapp, address } =
+  const { name, email, password, cnpj, phone, address } =
     createOrganizationRequestSchema.parse(request.body)
 
   const createOrganizationUseCase = makeOrganization()
@@ -32,7 +32,7 @@ export const create = async (request: FastifyRequest, reply: FastifyReply) => {
       email,
       password,
       cnpj,
-      whatsapp,
+      phone,
       address,
     })
 
