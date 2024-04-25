@@ -1,4 +1,4 @@
-import { Repository } from 'typeorm'
+import { ILike, Repository } from 'typeorm'
 
 import { dataSource } from '@/db/data-source'
 import { Pet } from '@/db/entity/Pet'
@@ -22,6 +22,34 @@ export class TypeOrmPetRepository implements PetRepository {
 
   async list(organizationId: string): Promise<Pet[]> {
     const pets = await this.repository.find({ where: { id: organizationId } })
+
+    return pets
+  }
+
+  async search(params: {
+    breed?: string
+    traits?: string[]
+    size?: string
+    city?: string
+    age?: number
+  }): Promise<Pet[]> {
+    const searchFilter: any = {}
+
+    if (params.breed) searchFilter.breed = ILike(`%${params.breed}%`)
+
+    if (params.size) searchFilter.size = ILike(`%${params.size}%`)
+
+    if (params.city)
+      searchFilter['organization.address.city'] = ILike(`%${params.city}%`)
+
+    if (params.age) searchFilter.age = params.age
+
+    if (params.traits && params.traits.length)
+      searchFilter.traits = params.traits.map((trait) => ILike(`%${trait}%`))
+
+    const pets = await this.repository.find({
+      where: searchFilter,
+    })
 
     return pets
   }

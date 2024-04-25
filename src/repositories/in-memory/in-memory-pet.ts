@@ -27,4 +27,42 @@ export class InMemoryPetRepository implements PetRepository {
       (data) => data.organization?.id === organizationId,
     )
   }
+
+  async search(params: {
+    breed?: string
+    traits?: string[]
+    size?: string
+    city?: string
+    age?: number
+  }): Promise<Pet[]> {
+    const pets = this.dataBase
+      .filter((pet) =>
+        params.city
+          ? pet.organization?.address.city.toLowerCase() ===
+            params.city.toLowerCase()
+          : true,
+      )
+      .filter((pet) =>
+        params.size
+          ? pet.size.toLowerCase() === params.size.toLowerCase()
+          : true,
+      )
+      .filter((pet) => (params.age ? pet.age === params.age : true))
+      .filter((pet) =>
+        params.breed
+          ? pet.breed.toLowerCase() === params.breed.toLowerCase()
+          : true,
+      )
+      .filter((pet) =>
+        params.traits
+          ? pet.traits.some((trait) =>
+              params
+                .traits!.map((t) => t.toLowerCase())
+                .includes(trait.toLowerCase()),
+            )
+          : true,
+      )
+
+    return pets
+  }
 }
