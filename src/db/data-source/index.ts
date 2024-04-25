@@ -1,4 +1,9 @@
+import path from 'node:path'
+
 import { DataSource } from 'typeorm'
+
+const entitiesPath = path.resolve('src', 'db', 'entity', '**/*.ts')
+const migrationsPath = path.resolve('src', 'db', 'migration', '**/*.ts')
 
 export const dataSource = new DataSource({
   type: 'postgres',
@@ -9,7 +14,7 @@ export const dataSource = new DataSource({
   database: 'findAfriend',
   synchronize: false,
   logging: true,
-  entities: ['src/db/entity/**/*.ts'],
-  migrations: ['src/db/migration/**/*.ts'],
+  entities: [entitiesPath],
+  migrations: [migrationsPath],
   subscribers: [],
 })

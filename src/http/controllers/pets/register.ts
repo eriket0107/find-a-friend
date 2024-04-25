@@ -22,7 +22,7 @@ export const register = async (
   const registerPetsUseCase = makePet()
 
   try {
-    const { pet } = await registerPetsUseCase.execute({
+    await registerPetsUseCase.execute({
       organizationId,
       age,
       breed,
@@ -31,8 +31,6 @@ export const register = async (
       traits,
       photo,
     })
-
-    console.log(pet.organization)
 
     return reply.status(201).send({ message: 'ok' })
   } catch (err) {
