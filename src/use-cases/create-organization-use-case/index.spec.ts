@@ -1,19 +1,21 @@
-import { compare } from 'bcryptjs'
 import { beforeEach, describe, expect, it } from 'vitest'
 
 import { InMemoryOrganizationRepository } from '@/repositories/in-memory/in-memory-organization'
+import { PasswordHandler } from '@/services/passwordHandler'
 import { makeOrganization } from '@/tests/makeOrg'
 
 import { OrgAlreadyExistsError } from '../errors/org-already-exists-error'
 import { CreateOrganizationUseCase } from '.'
 
 let organizationRepository: InMemoryOrganizationRepository
+let passwordHandler: PasswordHandler
 let sut: CreateOrganizationUseCase
 
 describe('Create Organization Use Case', async () => {
   beforeEach(async () => {
     organizationRepository = new InMemoryOrganizationRepository()
-    sut = new CreateOrganizationUseCase(organizationRepository)
+    passwordHandler = new PasswordHandler()
+    sut = new CreateOrganizationUseCase(organizationRepository, passwordHandler)
   })
 
   it('should be able to create a new organization', async () => {
@@ -38,6 +40,8 @@ describe('Create Organization Use Case', async () => {
 
     const { organization } = await sut.execute(fakeOrg)
 
-    expect(await compare(password, organization.password)).toBe(true)
+    expect(
+      await passwordHandler.comparePassword(password, organization.password),
+    ).toBe(true)
   })
 })

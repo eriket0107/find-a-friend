@@ -1,8 +1,7 @@
-import { hash } from 'bcryptjs'
-
 import { Address } from '@/db/entity/Address'
 import { Organization } from '@/db/entity/Organization'
 import { OrganizationRepository } from '@/repositories/organization-repository'
+import { PasswordHandler } from '@/services/passwordHandler'
 
 import { OrgAlreadyExistsError } from '../errors/org-already-exists-error'
 
@@ -20,7 +19,10 @@ type CreateOrganizationResponse = {
 }
 
 export class CreateOrganizationUseCase {
-  constructor(private organizationRepository: OrganizationRepository) {}
+  constructor(
+    private organizationRepository: OrganizationRepository,
+    private PasswordHandler: PasswordHandler,
+  ) {}
 
   async execute({
     cnpj,
@@ -35,7 +37,7 @@ export class CreateOrganizationUseCase {
 
     if (organizationByEmail) throw new OrgAlreadyExistsError()
 
-    const password_hash = await hash(password, 6)
+    const password_hash = await this.PasswordHandler.hashPassword(password, 6)
 
     const organization = await this.organizationRepository.create({
       cnpj,
