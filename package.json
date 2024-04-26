@@ -6,9 +6,9 @@
   "scripts": {
     "start": "node build/index.js",
     "build": "tsup src --out-dir build",
-    "dev": "tsx watch src/server.ts",
+    "dev": "tsx watch server.ts",
     "lint": "eslint src --ext .ts --fix",
-    "typeorm": "typeorm-ts-node-commonjs -d src/db/data-source",
+    "typeorm": "typeorm-ts-node-commonjs -d db/data-source",
     "migration:generate": "npm run typeorm migration:generate",
     "migration:run": "npm run typeorm migration:run",
     "test": "vitest run --dir src/use-cases",

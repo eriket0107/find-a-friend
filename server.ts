@@ -1,7 +1,7 @@
+import { dataSource } from 'db/data-source'
+
 import { app } from '@/app'
 import { env } from '@/env'
-
-import { dataSource } from '../db/data-source'
 
 const port = env.PORT
 
