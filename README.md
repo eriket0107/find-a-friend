@@ -1,6 +1,6 @@
 # Find A Friend API
 
-## To start application 
+## To start application
 
 - Feel free to use your favorite *pack manager*
 
