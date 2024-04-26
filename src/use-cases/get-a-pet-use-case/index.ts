@@ -1,4 +1,5 @@
-import { Pet } from '@/db/entity/Pet'
+import { Pet } from 'db/entity/Pet'
+
 import { PetRepository } from '@/repositories/pet-repository'
 
 import { PetNotFoundError } from '../errors/pet-not-found-error'

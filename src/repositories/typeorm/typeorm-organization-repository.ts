@@ -1,7 +1,6 @@
+import { dataSource } from 'db/data-source'
+import { Organization } from 'db/entity/Organization'
 import { Repository } from 'typeorm'
-
-import { dataSource } from '@/db/data-source'
-import { Organization } from '@/db/entity/Organization'
 
 import { OrganizationRepository } from '../organization-repository'
 

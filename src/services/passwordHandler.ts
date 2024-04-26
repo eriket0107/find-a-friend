@@ -1,4 +1,3 @@
-// services/PasswordHashingService.ts
 import { compare, hash } from 'bcryptjs'
 
 export class PasswordHandler {

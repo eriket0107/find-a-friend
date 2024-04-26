@@ -33,7 +33,7 @@ export class Organization {
   @Column({ type: 'varchar', nullable: true })
   whatsapp?: string
 
-  @Column({ type: 'varchar', length: 11 })
+  @Column({ type: 'varchar', length: 11, nullable: false, default: undefined })
   phone!: string
 
   @Column({ type: 'varchar', default: [Roles.ORG], enum: Roles })

@@ -1,4 +1,4 @@
-import { Organization } from '@/db/entity/Organization'
+import { Organization } from 'db/entity/Organization'
 
 export type OrganizationRepository = {
   create(data: Organization): Promise<Organization>

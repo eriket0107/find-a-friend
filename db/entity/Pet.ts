@@ -30,8 +30,8 @@ export class Pet {
   @Column('int')
   age!: number
 
-  @Column('varchar')
-  photo!: string
+  @Column({ type: 'varchar', nullable: true })
+  photo?: string
 
   @Column('varchar')
   traits!: string[]

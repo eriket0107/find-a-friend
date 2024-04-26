@@ -1,6 +1,5 @@
 import { randomUUID } from 'crypto'
-
-import { Organization } from '@/db/entity/Organization'
+import { Organization } from 'db/entity/Organization'
 
 import { OrganizationRepository } from '../organization-repository'
 

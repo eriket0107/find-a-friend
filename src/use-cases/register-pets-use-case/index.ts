@@ -1,4 +1,5 @@
-import { Pet } from '@/db/entity/Pet'
+import { Pet } from 'db/entity/Pet'
+
 import { OrganizationRepository } from '@/repositories/organization-repository'
 import { PetRepository } from '@/repositories/pet-repository'
 

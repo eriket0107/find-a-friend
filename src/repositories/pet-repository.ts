@@ -1,4 +1,4 @@
-import { Pet } from '@/db/entity/Pet'
+import { Pet } from 'db/entity/Pet'
 
 type searcParams = {
   breed?: string

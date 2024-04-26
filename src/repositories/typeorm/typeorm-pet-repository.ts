@@ -1,7 +1,6 @@
+import { dataSource } from 'db/data-source'
+import { Pet } from 'db/entity/Pet'
 import { ILike, Repository } from 'typeorm'
-
-import { dataSource } from '@/db/data-source'
-import { Pet } from '@/db/entity/Pet'
 
 import { PetRepository } from '../pet-repository'
 

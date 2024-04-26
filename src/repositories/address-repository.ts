@@ -1,5 +1,5 @@
-import { Address } from '@/db/entity/Address'
-import { Organization } from '@/db/entity/Organization'
+import { Address } from 'db/entity/Address'
+import { Organization } from 'db/entity/Organization'
 
 export type AddressInput = {
   street: string

@@ -1,5 +1,6 @@
-import { Address } from '@/db/entity/Address'
-import { Organization } from '@/db/entity/Organization'
+import { Address } from 'db/entity/Address'
+import { Organization } from 'db/entity/Organization'
+
 import { OrganizationRepository } from '@/repositories/organization-repository'
 import { PasswordHandler } from '@/services/passwordHandler'
 

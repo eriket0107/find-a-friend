@@ -1,4 +1,4 @@
-import { Address } from '@/db/entity/Address'
+import { Address } from 'db/entity/Address'
 
 import { AddressInput, AddressRepository } from '../address-repository'
 

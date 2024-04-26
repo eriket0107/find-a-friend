@@ -1,7 +1,6 @@
+import { dataSource } from 'db/data-source'
+import { Address } from 'db/entity/Address'
 import { Repository } from 'typeorm'
-
-import { dataSource } from '@/db/data-source'
-import { Address } from '@/db/entity/Address'
 
 import { AddressRepository } from '../address-repository'
 

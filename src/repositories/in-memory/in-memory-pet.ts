@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto'
 
-import { Pet } from '@/db/entity/Pet'
+import { Pet } from 'db/entity/Pet'
 
 import { PetRepository } from '../pet-repository'
 
