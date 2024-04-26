@@ -1,8 +1,9 @@
-import { randomUUID } from 'crypto'
 import { beforeEach, describe, expect, it } from 'vitest'
 
 import { InMemoryOrganizationRepository } from '@/repositories/in-memory/in-memory-organization'
 import { InMemoryPetRepository } from '@/repositories/in-memory/in-memory-pet'
+import { makeOrganization } from '@/tests/makeOrg'
+import { makePet } from '@/tests/makePet'
 
 import { PetNotFoundError } from '../errors/pet-not-found-error'
 import { GetAPetuseCae } from '.'
@@ -19,44 +20,23 @@ describe('Register Pet Use Case', async () => {
   })
 
   it('shuld be able to get current pet', async () => {
-    const address = {
-      city: 'Rio de Janeiro',
-      state: 'RJ',
-      country: 'BRA',
-      zipCode: '22790710',
-      street: 'Alfredo Balthazar da silveira',
-    }
+    const fakeOrg = makeOrganization()
+    const organization = await organizationRepository.create(fakeOrg)
 
-    const organization = await organizationRepository.create({
-      address,
-      id: randomUUID(),
-      cnpj: '89656977000175',
-      email: 'organization@email.com',
-      name: 'Organization',
-      password: '123456',
-      phone: '21999132991',
-    })
+    const pet1 = await petRepository.create({ ...makePet(), organization })
 
-    const petToGet = await petRepository.create({
-      age: 4,
-      breed: 'Golden Retriver',
-      description:
-        'Lorem Ipsum is Lorem Ipsum Lorem Ipsum is Lorem Ipsum Lorem Ipsum is Lorem Ipsum',
-      name: 'Dog',
-      photo: 'teste.png',
-      traits: ['Brincalhão', 'Fofo'],
-      size: 'giant',
-      organization,
-    })
+    const { pet } = await sut.execute({ petId: pet1.id })
 
-    const { pet } = await sut.execute({ petId: petToGet.id })
-
-    expect(pet.name).toEqual('Dog')
-    expect(pet).toEqual(expect.objectContaining(pet))
+    expect(pet.name).toEqual(pet1.name)
+    expect(pet).toEqual(expect.objectContaining(pet1))
     expect(pet.organization).toEqual(expect.objectContaining(organization))
   })
 
   it('should not be possible to find a pet', async () => {
+    const fakeOrg = makeOrganization()
+    const organization = await organizationRepository.create(fakeOrg)
+    await petRepository.create({ ...makePet(), organization })
+
     await expect(
       sut.execute({
         petId: '1',

@@ -1,9 +1,9 @@
-import { randomUUID } from 'node:crypto'
-
 import { beforeEach, describe, expect, it } from 'vitest'
 
 import { InMemoryOrganizationRepository } from '@/repositories/in-memory/in-memory-organization'
 import { InMemoryPetRepository } from '@/repositories/in-memory/in-memory-pet'
+import { makeOrganization } from '@/tests/makeOrg'
+import { makePet } from '@/tests/makePet'
 
 import { SearchPetsUseCase } from '.'
 
@@ -20,86 +20,50 @@ describe('Search Pets Use Case', async () => {
   })
 
   it('should be able to search for a pet by params', async () => {
-    const address = {
-      city: 'Rio de Janeiro',
-      state: 'RJ',
-      country: 'BRA',
-      zipCode: '22790710',
-      street: 'Alfredo Balthazar da silveira',
-    }
+    const fakeOrg = makeOrganization()
+    const organization = await organizationRepository.create(fakeOrg)
 
-    const organization = await organizationRepository.create({
-      address,
-      id: randomUUID(),
-      cnpj: '89656977000175',
-      email: 'organization@email.com',
-      name: 'Organization',
-      password: '123456',
-      phone: '21999132991',
-    })
-
-    await petRepository.create({
-      age: 4,
-      breed: 'Golden Retriver',
-      description:
-        'Lorem Ipsum is Lorem Ipsum Lorem Ipsum is Lorem Ipsum Lorem Ipsum is Lorem Ipsum',
-      name: 'Dog',
-      photo: 'teste.png',
-      traits: ['Brincalhão', 'Fofo'],
-      size: 'big',
-      organization,
-    })
-
-    await petRepository.create({
-      age: 4,
+    const fakePet1 = makePet()
+    const fakePet2 = makePet({
       breed: 'Cocker Spaniel',
-      description:
-        'Lorem Ipsum is Lorem Ipsum Lorem Ipsum is Lorem Ipsum Lorem Ipsum is Lorem Ipsum',
-      name: 'Dog',
-      photo: 'teste.png',
-      traits: ['Travesso', 'Atrevido'],
-      size: 'medium',
-      organization,
+      traits: ['Travesso', 'Fofo'],
     })
+
+    const promises = [fakePet1, fakePet2].map((pet) =>
+      petRepository.create({
+        ...pet,
+        organization,
+      }),
+    )
+
+    await Promise.all(promises)
 
     const { pets } = await sut.execute({
-      traits: ['fofo', 'travesso'],
+      traits: ['travesso', 'fofo'],
       age: 4,
-      city: 'rio de janeiro',
+      city: organization.address.city,
     })
 
     expect(pets).toHaveLength(2)
   })
   it('should return empty search', async () => {
-    const address = {
-      city: 'Rio de Janeiro',
-      state: 'RJ',
-      country: 'BRA',
-      zipCode: '22790710',
-      street: 'Alfredo Balthazar da silveira',
-    }
+    const fakeOrg = makeOrganization()
+    const organization = await organizationRepository.create(fakeOrg)
 
-    const organization = await organizationRepository.create({
-      address,
-      id: randomUUID(),
-      cnpj: '89656977000175',
-      email: 'organization@email.com',
-      name: 'Organization',
-      password: '123456',
-      phone: '21999132991',
-    })
-
-    await petRepository.create({
-      age: 4,
+    const fakePet1 = makePet()
+    const fakePet2 = makePet({
       breed: 'Cocker Spaniel',
-      description:
-        'Lorem Ipsum is Lorem Ipsum Lorem Ipsum is Lorem Ipsum Lorem Ipsum is Lorem Ipsum',
-      name: 'Dog',
-      photo: 'teste.png',
-      traits: ['Travesso', 'Atrevido'],
-      size: 'medium',
-      organization,
+      traits: ['Travesso', 'Fofo'],
     })
+
+    const promises = [fakePet1, fakePet2].map((pet) =>
+      petRepository.create({
+        ...pet,
+        organization,
+      }),
+    )
+
+    await Promise.all(promises)
 
     const { pets } = await sut.execute({
       age: 1,
@@ -110,42 +74,30 @@ describe('Search Pets Use Case', async () => {
     expect(pets).toHaveLength(0)
   })
   it('should be able to search by traits', async () => {
-    const address = {
-      city: 'Rio de Janeiro',
-      state: 'RJ',
-      country: 'BRA',
-      zipCode: '22790710',
-      street: 'Alfredo Balthazar da silveira',
-    }
+    const fakeOrg = makeOrganization()
+    const organization = await organizationRepository.create(fakeOrg)
 
-    const organization = await organizationRepository.create({
-      address,
-      id: randomUUID(),
-      cnpj: '89656977000175',
-      email: 'organization@email.com',
-      name: 'Organization',
-      password: '123456',
-      phone: '21999132991',
+    const fakePet = makePet({
+      traits: ['Travesso'],
+    })
+    const fakePet2 = makePet({
+      traits: ['Fofo'],
     })
 
-    await petRepository.create({
-      age: 4,
-      breed: 'Cocker Spaniel',
-      description:
-        'Lorem Ipsum is Lorem Ipsum Lorem Ipsum is Lorem Ipsum Lorem Ipsum is Lorem Ipsum',
-      name: 'Dog',
-      photo: 'teste.png',
-      traits: ['Travesso', 'Atrevido'],
-      size: 'medium',
-      organization,
-    })
+    const promises = [fakePet, fakePet2].map((pet) =>
+      petRepository.create({
+        ...pet,
+        organization,
+      }),
+    )
+
+    await Promise.all(promises)
 
     const { pets } = await sut.execute({
       traits: ['Travesso'],
     })
-    console.log(pets)
 
     expect(pets).toHaveLength(1)
-    expect(pets[0].name).toEqual('Dog')
+    expect(pets[0].traits).toContain('Travesso')
   })
 })

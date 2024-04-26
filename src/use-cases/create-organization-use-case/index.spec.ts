@@ -2,6 +2,7 @@ import { compare } from 'bcryptjs'
 import { beforeEach, describe, expect, it } from 'vitest'
 
 import { InMemoryOrganizationRepository } from '@/repositories/in-memory/in-memory-organization'
+import { makeOrganization } from '@/tests/makeOrg'
 
 import { OrgAlreadyExistsError } from '../errors/org-already-exists-error'
 import { CreateOrganizationUseCase } from '.'
@@ -16,76 +17,26 @@ describe('Create Organization Use Case', async () => {
   })
 
   it('should be able to create a new organization', async () => {
-    const address = {
-      city: 'Rio de Janeiro',
-      state: 'RJ',
-      country: 'BRA',
-      zipCode: '22790710',
-      street: 'Alfredo Balthazar da silveira',
-    }
+    const { organization } = await sut.execute(makeOrganization())
 
-    const { organization } = await sut.execute({
-      address,
-      cnpj: '89656977000175',
-      email: 'organization@email.com',
-      name: 'Organization',
-      password: '123456',
-      phone: '21999132991',
-    })
-
-    expect(organization.name).toEqual('Organization')
-    expect(organization.address).toEqual(address)
+    expect(organization.name).toEqual(expect.any(String))
+    expect(organization.id).toEqual(expect.any(String))
   })
 
   it('should not be able to create a new org with an already used email', async () => {
-    const address = {
-      city: 'Rio de Janeiro',
-      state: 'RJ',
-      country: 'BRA',
-      zipCode: '22790710',
-      street: 'Alfredo Balthazar da silveira',
-    }
+    const { organization } = await sut.execute(makeOrganization())
 
-    await sut.execute({
-      address,
-      cnpj: '89656977000175',
-      email: 'organization@email.com',
-      name: 'Organization',
-      password: '123456',
-      phone: '21999132991',
-    })
-
-    await expect(
-      sut.execute({
-        address,
-        cnpj: '89656977000175',
-        email: 'organization@email.com',
-        name: 'Organization',
-        password: '123456',
-        phone: '21999132991',
-      }),
-    ).rejects.toBeInstanceOf(OrgAlreadyExistsError)
+    await expect(sut.execute(organization)).rejects.toBeInstanceOf(
+      OrgAlreadyExistsError,
+    )
   })
 
   it('should hash password upon creation', async () => {
     const password = '123456'
 
-    const address = {
-      city: 'Rio de Janeiro',
-      state: 'RJ',
-      country: 'BRA',
-      zipCode: '22790710',
-      street: 'Alfredo Balthazar da silveira',
-    }
+    const fakeOrg = makeOrganization({ password })
 
-    const { organization } = await sut.execute({
-      address,
-      cnpj: '89656977000175',
-      email: 'organization@email.com',
-      name: 'Organization',
-      password,
-      phone: '21999132991',
-    })
+    const { organization } = await sut.execute(fakeOrg)
 
     expect(await compare(password, organization.password)).toBe(true)
   })

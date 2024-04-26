@@ -16,10 +16,10 @@
 
 - [X] It should be possible to register a pet
 - [X] It should be possible to list all pets available for adoption in a Org
-- [ ] It should be possible to list all pets available for adoption in a City
-- [ ] It should be possible to filter pets by their characteristics
-- [X] It should be possible to view details of a pet for adoption (name, photo, description, age, breed)
-- [ ] It should be possible to register as an ORG
+- [X] It should be possible to list all pets available for adoption in a City
+- [X] It should be possible to filter pets by their characteristics
+- [ ] It should be possible to view details of a pet for adoption (name, photo, description, age, breed)
+- [X] It should be possible to register as an ORG
 - [ ] It should be possible to register as an User
 - [ ] It should be possible to log in and log out as an ORG
 - [ ] It should be possible to log in and log out as an user
