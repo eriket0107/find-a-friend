@@ -1,5 +1,6 @@
 import cookies from '@fastify/cookie'
 import cors from '@fastify/cors'
+import multipart from '@fastify/multipart'
 import fastify from 'fastify'
 import { ZodError } from 'zod'
 
@@ -12,6 +13,17 @@ export const app = fastify()
 
 app.register(cors)
 app.register(cookies)
+
+app.register(multipart, {
+  limits: {
+    fieldNameSize: 100,
+    fieldSize: 100,
+    fields: 10,
+    fileSize: 1000000,
+    files: 1,
+    parts: 1000,
+  },
+})
 
 app.register(petsRoutes)
 app.register(organizationRoutes)

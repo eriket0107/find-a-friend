@@ -65,4 +65,10 @@ export class InMemoryPetRepository implements PetRepository {
 
     return pets
   }
+
+  async insertPhoto(petId: string, photo: string): Promise<void> {
+    const pet = await this.findById(petId)
+
+    pet!.photo = photo
+  }
 }

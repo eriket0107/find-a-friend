@@ -52,4 +52,8 @@ export class TypeOrmPetRepository implements PetRepository {
 
     return pets
   }
+
+  async insertPhoto(petId: string, photo: string): Promise<void> {
+    await this.repository.update(petId, { photo })
+  }
 }

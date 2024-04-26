@@ -13,4 +13,5 @@ export type PetRepository = {
   findById(petId: string): Promise<Pet | null>
   list(organizationId: string): Promise<Pet[]>
   search(params: searcParams): Promise<Pet[]>
+  insertPhoto(petId: string, photo: string): Promise<void>
 }
