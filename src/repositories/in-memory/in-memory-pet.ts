@@ -66,9 +66,11 @@ export class InMemoryPetRepository implements PetRepository {
     return pets
   }
 
-  async insertPhoto(petId: string, photo: string): Promise<void> {
-    const pet = await this.findById(petId)
+  async insertPhoto(petId: string, photo: string): Promise<Pet | null> {
+    const pet = this.dataBase.find((pet) => pet.id === petId) ?? null
 
     pet!.photo = photo
+
+    return pet
   }
 }

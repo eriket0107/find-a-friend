@@ -35,7 +35,7 @@ app.setErrorHandler((error, _, reply) => {
       issues: error.format(),
     })
   }
-
+  console.log(error)
   if (env.NODE_ENV !== 'prod') {
     console.error(error)
   }

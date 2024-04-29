@@ -53,7 +53,11 @@ export class TypeOrmPetRepository implements PetRepository {
     return pets
   }
 
-  async insertPhoto(petId: string, photo: string): Promise<void> {
+  async insertPhoto(petId: string, photo: string): Promise<Pet | null> {
     await this.repository.update(petId, { photo })
+
+    const updatedPet = await this.repository.findOne({ where: { id: petId } })
+
+    return updatedPet
   }
 }
