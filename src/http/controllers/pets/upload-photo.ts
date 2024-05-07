@@ -1,3 +1,4 @@
+import { randomUUID } from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
 
@@ -8,27 +9,31 @@ export const uploadPhoto = async (
   request: FastifyRequest,
   reply: FastifyReply,
 ) => {
-  const file = await request.saveRequestFiles()
+  const files = await request.saveRequestFiles()
 
   const fileMetadataSchema = z.object({
     fieldname: z.string(),
     filename: z.string(),
-    mimetype: z.string().regex(/^image\/(jpg|jpeg|png|gif|svg\+xml)$/),
-    size: z
-      .number()
-      .min(1)
-      .max(1024 * 1024), // limit the size to 1024 Mb
+    mimetype: z.string().regex(/^image\/(jpg|jpeg|png|webp)$/),
   })
 
   try {
-    fileMetadataSchema.parse(file)
-    const uniqueName = `photo-${Date.now()}-${file?.[0].filename}`
-    const newPath = path.join('uploads', uniqueName)
+    for await (const file of files) {
+      fileMetadataSchema.parse(file)
+      const uniqueName = `${randomUUID()}-photo-${file?.filename}`
+      const newPath = path.join('src/uploads', uniqueName)
 
-    fs.renameSync(file?.[0].filepath, newPath)
+      const dirPath = path.dirname(newPath)
+      if (!fs.existsSync(dirPath)) {
+        fs.mkdirSync(dirPath, { recursive: true })
+      }
 
-    reply.send({ message: 'File uploaded successfully', file })
+      fs.renameSync(file?.filepath, newPath)
+    }
   } catch (error) {
+    console.log({ error })
     reply.code(400).send({ message: 'Invalid file metadata', error })
   }
+
+  reply.send({ message: 'File uploaded successfully' })
 }
