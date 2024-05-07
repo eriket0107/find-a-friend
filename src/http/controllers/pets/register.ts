@@ -2,6 +2,7 @@ import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 
 import { makePet } from '@/use-cases/fatories/make-pets'
+import { errorHandler } from '@/utils/errorHandler'
 
 export const register = async (
   request: FastifyRequest,
@@ -35,7 +36,7 @@ export const register = async (
     })
 
     return reply.status(201).send({ message: 'ok' })
-  } catch (err) {
-    console.error(err)
+  } catch (error) {
+    errorHandler({ error, reply, code: 400 })
   }
 }

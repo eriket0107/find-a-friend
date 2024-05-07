@@ -2,6 +2,7 @@ import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 
 import { makeOrganization } from '@/use-cases/fatories/make-organizations'
+import { errorHandler } from '@/utils/errorHandler'
 
 export const create = async (request: FastifyRequest, reply: FastifyReply) => {
   const createOrganizationRequestSchema = z.object({
@@ -37,7 +38,7 @@ export const create = async (request: FastifyRequest, reply: FastifyReply) => {
     })
 
     return reply.status(201).send({ message: 'ok' })
-  } catch (e) {
-    console.log(e)
+  } catch (error) {
+    errorHandler({ error, reply, code: 400 })
   }
 }

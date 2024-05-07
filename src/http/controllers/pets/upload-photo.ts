@@ -5,6 +5,8 @@ import path from 'node:path'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 
+import { errorHandler } from '@/utils/errorHandler'
+
 export const uploadPhoto = async (
   request: FastifyRequest,
   reply: FastifyReply,
@@ -31,8 +33,7 @@ export const uploadPhoto = async (
       fs.renameSync(file?.filepath, newPath)
     }
   } catch (error) {
-    console.log({ error })
-    reply.code(400).send({ message: 'Invalid file metadata', error })
+    errorHandler({ error, reply, code: 400 })
   }
 
   reply.send({ message: 'File uploaded successfully' })
