@@ -3,12 +3,12 @@ import { FastifyReply } from 'fastify'
 export const errorHandler = ({
   error,
   reply,
-  code,
+  code = 400,
   message,
 }: {
   error: unknown
   reply: FastifyReply
-  code: number
+  code?: number
   message?: string
 }) => {
   let errorMessage
