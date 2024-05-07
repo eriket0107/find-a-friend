@@ -2,8 +2,8 @@ import path from 'node:path'
 
 import { DataSource } from 'typeorm'
 
-const entitiesPath = path.resolve('src', 'db', 'entity', '**/*.ts')
-const migrationsPath = path.resolve('src', 'db', 'migration', '**/*.ts')
+const entitiesPath = path.resolve('db', 'entity', '**/*.ts')
+const migrationsPath = path.resolve('db', 'migration', '**/*.ts')
 
 export const dataSource = new DataSource({
   type: 'postgres',
