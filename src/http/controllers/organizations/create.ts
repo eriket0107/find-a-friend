@@ -36,7 +36,6 @@ export const create = async (request: FastifyRequest, reply: FastifyReply) => {
       phone,
       address,
     })
-
     return reply.status(201).send({ message: 'ok' })
   } catch (error) {
     errorHandler({ error, reply, code: 400 })
