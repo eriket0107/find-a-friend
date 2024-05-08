@@ -23,6 +23,7 @@ app.register(multipart, {
     files: 1,
     parts: 1000,
   },
+  attachFieldsToBody: true,
 })
 
 app.register(petsRoutes)
