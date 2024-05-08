@@ -24,6 +24,7 @@ export const uploadPhoto = async (
   const paramsSchema = z.object({
     petId: z.string(),
   })
+
   const { petId } = paramsSchema.parse(request.params)
 
   const petRepository = new TypeOrmPetRepository()
@@ -33,6 +34,7 @@ export const uploadPhoto = async (
     for await (const file of files) {
       fileMetadataSchema.parse(file)
 
+      const type = file.mimetype.split('/')[1]
       const uniqueName = `${randomUUID()}-photo-${file?.filename}`
       const newPath = path.join('src/uploads', uniqueName)
 
@@ -53,6 +55,7 @@ export const uploadPhoto = async (
         photo: newPath,
         size: fileSizeInMB,
         petId,
+        type,
       })
     }
   } catch (error) {
