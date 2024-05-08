@@ -19,32 +19,26 @@ describe('Register Pet Use Case', async () => {
     sut = new RegisterPetsUseCase(petRepository, organizationRepository)
   })
 
-  it('shuld be able to register a pet in organization', async () => {
+  it('should be able to register a pet in organization', async () => {
     const fakeOrg = makeOrganization()
     const organization = await organizationRepository.create(fakeOrg)
 
-    const fakePet = await petRepository.create({ ...makePet(), organization })
-
     const { pet } = await sut.execute({
-      ...fakePet,
+      ...makePet(),
       organizationId: organization.id,
     })
 
-    expect(pet.name).toEqual(fakePet.name)
+    expect(pet.name).toEqual(pet.name)
     expect(pet).toEqual(expect.objectContaining(pet))
     expect(pet.organization).toEqual(expect.objectContaining(organization))
   })
 
   it('should not be possible to register a pet without an organization', async () => {
-    const organization = makeOrganization()
-
-    const fakePet = await petRepository.create({ ...makePet(), organization })
-
     await expect(
       sut.execute({
-        ...fakePet,
+        ...makePet(),
         organizationId: '1',
       }),
-    ).rejects.to.toBeInstanceOf(OrgNotFoundError)
+    ).rejects.toBeInstanceOf(OrgNotFoundError)
   })
 })
