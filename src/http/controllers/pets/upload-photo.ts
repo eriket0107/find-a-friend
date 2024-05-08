@@ -21,11 +21,11 @@ export const uploadPhoto = async (
     mimetype: z.string().regex(/^image\/(jpg|jpeg|png|webp)$/),
   })
 
-  const paramsSchema = z.object({
+  const paramsPetIdSchema = z.object({
     petId: z.string(),
   })
 
-  const { petId } = paramsSchema.parse(request.params)
+  const { petId } = paramsPetIdSchema.parse(request.params)
 
   const petRepository = new TypeOrmPetRepository()
   const uploadphotoUseCase = new UploadPetPhotoUseCase(petRepository)
