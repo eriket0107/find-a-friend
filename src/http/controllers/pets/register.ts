@@ -14,11 +14,10 @@ export const register = async (
     description: z.string(),
     age: z.number(),
     traits: z.array(z.string()),
-    photo: z.string(),
     organizationId: z.string(),
     size: z.enum(['small', 'medium', 'big', 'giant']),
   })
-  const { age, breed, description, name, traits, photo, organizationId, size } =
+  const { age, breed, description, name, traits, organizationId, size } =
     registerBodySchema.parse(request.body)
 
   const registerPetsUseCase = makePet()
@@ -31,7 +30,6 @@ export const register = async (
       description,
       name,
       traits,
-      photo,
       size,
     })
 

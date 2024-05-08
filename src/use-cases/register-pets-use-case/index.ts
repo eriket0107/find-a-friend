@@ -11,7 +11,6 @@ type RegisterPetsUseCaseRequest = {
   description: string
   name: string
   traits: string[]
-  photo: string
   size: string
   organizationId: string
 }
@@ -30,7 +29,6 @@ export class RegisterPetsUseCase {
     breed,
     description,
     name,
-    photo,
     traits,
     size,
     organizationId,
@@ -45,7 +43,6 @@ export class RegisterPetsUseCase {
       breed,
       description,
       name,
-      photo,
       traits,
       organization,
       size,

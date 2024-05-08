@@ -47,9 +47,6 @@ export const uploadPhoto = async (
       const fileSizeInKB = fileSizeInBytes / 1024
       const fileSizeInMB = fileSizeInKB / 1024
 
-      console.log(`File size: ${fileSizeInMB.toFixed(2)} KB`)
-      console.log(`File size: ${fileSizeInKB.toFixed(2)} MB`)
-
       fs.renameSync(file?.filepath, newPath)
 
       await uploadphotoUseCase.execute({
