@@ -7,7 +7,6 @@ export const makePet = ({
   breed = 'Golden Retriever',
   description = faker.lorem.paragraph(),
   name = faker.person.firstName(),
-  photo = faker.image.urlPlaceholder(),
   traits = ['Brincalhão', 'Fofo'],
   size = 'big',
 } = {}) => {
@@ -17,7 +16,6 @@ export const makePet = ({
     breed,
     description,
     name,
-    photo,
     traits,
     size,
   }

@@ -23,6 +23,8 @@
 - [ ] It should be possible to register as an User
 - [ ] It should be possible to log in and log out as an ORG
 - [ ] It should be possible to log in and log out as an user
+<!-- - [ ] It should be able to contact the org through message chat??? -->
+
 
 ## Business Rules
 
@@ -30,6 +32,6 @@
 - [X] An ORG needs to have an address and a WhatsApp number (name, address, phone, cpnj)
 - [ ] It should be possible to list all ORG pets
 - [X] A pet must be linked to an ORG
-- [ ] The user who wants to adopt will contact the ORG via WhatsApp
+<!-- - [ ] The user who wants to adopt will contact the ORG through chat -->
 - [ ] All filters, except for the city, are optional
 - [ ] For an ORG to access the application as an admin, it needs to be logged in
