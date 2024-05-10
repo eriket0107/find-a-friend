@@ -1,8 +1,8 @@
 import { Address } from 'db/entity/Address'
 import { Organization } from 'db/entity/Organization'
 
+import { PasswordHandler } from '@/helpers/passwordHandler'
 import { OrganizationRepository } from '@/repositories/organization-repository'
-import { PasswordHandler } from '@/services/passwordHandler'
 
 import { OrgAlreadyExistsError } from '../errors/org-already-exists-error'
 

@@ -1,10 +1,7 @@
-import { randomUUID } from 'node:crypto'
-import fs from 'node:fs'
-import path from 'node:path'
-
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 
+import { PhotoHandler } from '@/helpers/photoHandler'
 import { TypeOrmPetRepository } from '@/repositories/typeorm/typeorm-pet-repository'
 import { UploadPetPhotoUseCase } from '@/use-cases/upload-pet-photo-use-case'
 import { errorHandler } from '@/utils/errorHandler'
@@ -29,35 +26,24 @@ export const uploadPhoto = async (
 
   const petRepository = new TypeOrmPetRepository()
   const uploadphotoUseCase = new UploadPetPhotoUseCase(petRepository)
+  const photoHandler = new PhotoHandler()
 
+  let photo
   try {
-    for await (const file of files) {
-      fileMetadataSchema.parse(file)
+    for await (const fileChunk of files) {
+      fileMetadataSchema.parse(fileChunk)
 
-      const type = file.mimetype.split('/')[1]
-      const uniqueName = `${randomUUID()}-photo-${file?.filename}`
-      const newPath = path.join('src/uploads', uniqueName)
-
-      const dirPath = path.dirname(newPath)
-      if (!fs.existsSync(dirPath)) {
-        fs.mkdirSync(dirPath, { recursive: true })
-      }
-
-      const stats = fs.statSync(file?.filepath)
-      const fileSizeInBytes = stats.size
-
-      const fileSizeInKB = fileSizeInBytes / 1024
-      const fileSizeInMB = fileSizeInKB / 1024
-
-      fs.renameSync(file?.filepath, newPath)
-
-      await uploadphotoUseCase.execute({
-        photo: newPath,
-        size: fileSizeInMB,
-        petId,
-        type,
-      })
+      photo = await photoHandler.handleFile({ file: fileChunk, petId })
     }
+
+    if (!photo) throw new Error("Can't upload photo")
+
+    await uploadphotoUseCase.execute({
+      photo: photo.newPath,
+      size: photo.fileSizeInMB,
+      petId,
+      type: photo.type,
+    })
   } catch (error) {
     errorHandler({ error, reply, code: 400 })
   }
