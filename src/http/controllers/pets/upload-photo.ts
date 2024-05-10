@@ -32,16 +32,19 @@ export const uploadPhoto = async (
   try {
     for await (const fileChunk of files) {
       fileMetadataSchema.parse(fileChunk)
-
-      photo = await photoHandler.handleFile({ file: fileChunk, petId })
+      try {
+        photo = await photoHandler.handleFile({ file: fileChunk, petId })
+      } catch (error) {
+        console.log(error)
+      }
     }
 
     if (!photo) throw new Error("Can't upload photo")
 
     await uploadphotoUseCase.execute({
-      photo: photo.newPath,
-      size: photo.fileSizeInMB,
       petId,
+      photo: photo.photoPath,
+      size: photo.fileSizeInMB,
       type: photo.type,
     })
   } catch (error) {

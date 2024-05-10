@@ -45,6 +45,7 @@
     "pg": "^8.4.0",
     "pg-hstore": "2.3.4",
     "reflect-metadata": "^0.1.13",
+    "sharp": "0.33.3",
     "supertest": "6.3.4",
     "typeorm": "0.3.20",
     "zod": "3.22.4"
