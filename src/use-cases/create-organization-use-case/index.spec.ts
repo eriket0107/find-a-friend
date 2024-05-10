@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 
+import { PasswordHandler } from '@/helpers/passwordHandler'
 import { InMemoryOrganizationRepository } from '@/repositories/in-memory/in-memory-organization'
-import { PasswordHandler } from '@/services/passwordHandler'
 import { makeOrganization } from '@/tests/makeOrg'
 
 import { OrgAlreadyExistsError } from '../errors/org-already-exists-error'

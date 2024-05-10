@@ -1,5 +1,5 @@
+import { PasswordHandler } from '@/helpers/passwordHandler'
 import { TypeOrmOrganizationRepostory } from '@/repositories/typeorm/typeorm-organization-repository'
-import { PasswordHandler } from '@/services/passwordHandler'
 
 import { CreateOrganizationUseCase } from '../create-organization-use-case'
 
