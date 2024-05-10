@@ -15,9 +15,10 @@ export class GetPetPhotoUseCase {
     if (!pet) throw new PetNotFoundError()
 
     const { photo } = pet
-
     if (!photo || !photo === null) throw new Error('Photo not found')
 
-    return { photo }
+    const type = `image/${photo.split('.').pop()}`
+
+    return { photo, type }
   }
 }

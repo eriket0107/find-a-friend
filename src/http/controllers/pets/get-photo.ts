@@ -20,11 +20,11 @@ export const getPhoto = async (
   const getPetPhotoUseCase = new GetPetPhotoUseCase(petRepository)
 
   try {
-    const { photo } = await getPetPhotoUseCase.execute({ petId })
+    const { photo, type } = await getPetPhotoUseCase.execute({ petId })
 
     const photoFile = await readFileToBuffer(photo)
 
-    return reply.status(200).type('image/jpeg').send(photoFile)
+    return reply.status(200).type(type).send(photoFile)
   } catch (error) {
     errorHandler({ error, reply, code: 400 })
   }
