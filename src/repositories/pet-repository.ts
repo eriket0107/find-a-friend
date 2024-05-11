@@ -8,10 +8,15 @@ type searcParams = {
   age?: number
 }
 
+type insertPhotoParams = {
+  petId: string
+  photo: string
+}
+
 export type PetRepository = {
   create(data: Pet): Promise<Pet>
   findById(petId: string): Promise<Pet | null>
   list(organizationId: string): Promise<Pet[]>
   search(params: searcParams): Promise<Pet[]>
-  insertPhoto(petId: string, photo: string): Promise<Pet | null>
+  insertPhoto(params: insertPhotoParams): Promise<Pet | null>
 }

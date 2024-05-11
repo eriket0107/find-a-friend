@@ -23,7 +23,7 @@ export class UploadPetPhotoUseCase {
 
     if (size > 1024) throw new PhotoSizeExcededError()
 
-    await this.petRepository.insertPhoto(petId, photo)
+    await this.petRepository.insertPhoto({ petId, photo })
 
     return { photo }
   }
