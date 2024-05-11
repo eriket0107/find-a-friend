@@ -20,7 +20,7 @@ app.register(multipart, {
     fieldSize: 100,
     fields: 10,
     fileSize: 1000000,
-    files: 1,
+    files: 10,
     parts: 1000,
   },
   attachFieldsToBody: true,

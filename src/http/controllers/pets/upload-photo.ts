@@ -3,6 +3,7 @@ import { z } from 'zod'
 
 import { PhotoHandler } from '@/helpers/photoHandler'
 import { TypeOrmPetRepository } from '@/repositories/typeorm/typeorm-pet-repository'
+import { PhotoUploadError } from '@/use-cases/errors/photo-upload-error'
 import { UploadPetPhotoUseCase } from '@/use-cases/upload-pet-photo-use-case'
 import { errorHandler } from '@/utils/errorHandler'
 
@@ -39,7 +40,7 @@ export const uploadPhoto = async (
       }
     }
 
-    if (!photo) throw new Error("Can't upload photo")
+    if (!photo) throw new PhotoUploadError()
 
     await uploadphotoUseCase.execute({
       petId,

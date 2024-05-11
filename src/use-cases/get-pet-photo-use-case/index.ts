@@ -1,6 +1,7 @@
 import { PetRepository } from '@/repositories/pet-repository'
 
 import { PetNotFoundError } from '../errors/pet-not-found-error'
+import { PhotoNotFoundError } from '../errors/photo-not-found'
 
 type GetPetPhotoUseCaseRequest = {
   petId: string
@@ -15,7 +16,7 @@ export class GetPetPhotoUseCase {
     if (!pet) throw new PetNotFoundError()
 
     const { photo } = pet
-    if (!photo || !photo === null) throw new Error('Photo not found')
+    if (!photo || photo === null) throw new PhotoNotFoundError()
 
     const type = `image/${photo.split('.').pop()}`
 
