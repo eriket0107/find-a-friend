@@ -1,4 +1,4 @@
-export class InvalidPhotoUploadTyeError extends Error {
+export class InvalidPhotoUploadTypeError extends Error {
   constructor() {
     super('Invalind photo file type.')
   }

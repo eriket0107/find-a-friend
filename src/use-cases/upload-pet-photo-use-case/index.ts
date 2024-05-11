@@ -2,7 +2,7 @@ import { PetRepository } from '@/repositories/pet-repository'
 
 import { PetNotFoundError } from '../errors/pet-not-found-error'
 import { PhotoSizeExcededError } from '../errors/photo-size-exceded-error'
-import { InvalidPhotoUploadTyeError } from '../errors/photo-upload-invalid-type-error'
+import { InvalidPhotoUploadTypeError } from '../errors/photo-upload-invalid-type-error'
 
 type UploadPetPhotoUseCaseRequest = {
   petId: string
@@ -21,7 +21,7 @@ export class UploadPetPhotoUseCase {
 
     if (!pet) throw new PetNotFoundError()
 
-    if (!types.includes(type)) throw new InvalidPhotoUploadTyeError()
+    if (!types.includes(type)) throw new InvalidPhotoUploadTypeError()
 
     if (size > 1024) throw new PhotoSizeExcededError()
 

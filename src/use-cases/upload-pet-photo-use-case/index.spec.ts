@@ -7,7 +7,7 @@ import { makePet } from '@/tests/makePet'
 
 import { PetNotFoundError } from '../errors/pet-not-found-error'
 import { PhotoSizeExcededError } from '../errors/photo-size-exceded-error'
-import { InvalidPhotoUploadTyeError } from '../errors/photo-upload-invalid-type-error'
+import { InvalidPhotoUploadTypeError } from '../errors/photo-upload-invalid-type-error'
 import { UploadPetPhotoUseCase } from '.'
 
 let petRepository: InMemoryPetRepository
@@ -86,6 +86,6 @@ describe('Register Pet Use Case', async () => {
         size: 1025,
         type: 'svg',
       }),
-    ).rejects.toBeInstanceOf(InvalidPhotoUploadTyeError)
+    ).rejects.toBeInstanceOf(InvalidPhotoUploadTypeError)
   })
 })
