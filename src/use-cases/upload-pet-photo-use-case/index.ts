@@ -17,11 +17,9 @@ export class UploadPetPhotoUseCase {
   async execute({ petId, photo, size, type }: UploadPetPhotoUseCaseRequest) {
     const pet = await this.petRepository.findById(petId)
 
-    const types = ['jpg', 'jpeg', 'png', 'webp']
-
     if (!pet) throw new PetNotFoundError()
 
-    if (!types.includes(type)) throw new InvalidPhotoUploadTypeError()
+    if (type !== 'webp') throw new InvalidPhotoUploadTypeError()
 
     if (size > 1024) throw new PhotoSizeExcededError()
 
