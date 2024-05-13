@@ -5,6 +5,7 @@ import { InMemoryPetRepository } from '@/repositories/in-memory/in-memory-pet'
 import { makeOrganization } from '@/tests/makeOrg'
 import { makePet } from '@/tests/makePet'
 
+import { PetNotFoundError } from '../errors/pet-not-found-error'
 import { GetPetPhotoUseCase } from '.'
 
 let petRepository: InMemoryPetRepository
@@ -38,5 +39,34 @@ describe('Get Pet Photo Use Case', async () => {
 
     expect(photo).toEqual(expect.any(String))
     expect(type).toEqual('image/webp')
+  })
+
+  it('should not be able to get pet photo with wrong id', async () => {
+    const fakeOrg = makeOrganization()
+    const organization = await organizationRepository.create(fakeOrg)
+
+    const fakePet = await petRepository.create({
+      ...makePet(),
+      organization,
+    })
+
+    await petRepository.insertPhoto({
+      petId: fakePet.id,
+      photo: 'teste.webp',
+    })
+
+    await expect(
+      sut.execute({
+        petId: '1',
+      }),
+    ).rejects.toBeInstanceOf(PetNotFoundError)
+  })
+
+  it('should not be able to get pet photo from a pet that does not exist', async () => {
+    await expect(
+      sut.execute({
+        petId: '1',
+      }),
+    ).rejects.toBeInstanceOf(PetNotFoundError)
   })
 })
