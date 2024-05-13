@@ -34,7 +34,7 @@ export const uploadPhoto = async (
     for await (const fileChunk of files) {
       fileMetadataSchema.parse(fileChunk)
       try {
-        photo = await photoHandler.handleFile({ file: fileChunk, petId })
+        photo = await photoHandler.handleFile({ file: fileChunk, id: petId })
       } catch (error) {
         console.log(error)
       }

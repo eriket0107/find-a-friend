@@ -1,4 +1,4 @@
-import fs from 'node:fs'
+import fs from 'node:fs/promises'
 import path from 'node:path'
 
 import { SavedMultipartFile } from '@fastify/multipart'
@@ -7,40 +7,33 @@ import sharp from 'sharp'
 type File = SavedMultipartFile
 
 export class PhotoHandler {
-  async handleFile({ petId, file }: { petId: string; file: File }) {
-    const uniqueName = `${petId}-${file.filename}`.split('.')[0]
-    const photoPath = path.join('src/uploads', uniqueName + '.webp')
+  async handleFile({ id, file }: { id: string; file: File }) {
+    const uniqueName = `${id}-${file.filename}`.split('.')[0]
+    const photoPath = path.join('src/uploads', `${uniqueName}.webp`)
 
     const dirPath = path.dirname(photoPath)
-    if (!fs.existsSync(dirPath)) {
-      fs.mkdirSync(dirPath, { recursive: true })
-    }
+    await fs.mkdir(dirPath, { recursive: true })
 
-    fs.renameSync(file.filepath, photoPath)
-
-    const input = fs.readFileSync(photoPath)
-
-    const stats = fs.statSync(photoPath)
-    const fileSizeInBytes = stats.size
-
-    const fileSizeInKB = fileSizeInBytes / 1024
-    const fileSizeInMB = fileSizeInKB / 1024
+    await fs.rename(file.filepath, photoPath)
 
     try {
-      await sharp(input)
-        .toFormat('webp')
+      const input = await fs.readFile(photoPath)
+      const resizedImage = await sharp(input)
         .resize({ width: 500, height: 500 })
-        .toFile(photoPath)
+        .toFormat('webp')
+        .toBuffer()
 
-      console.log(`File moved successfully to ${photoPath}`)
+      await fs.writeFile(photoPath, resizedImage)
+
+      console.log(`File moved and resized successfully to ${photoPath}`)
 
       return {
         photoPath,
         type: 'webp',
-        fileSizeInMB,
+        fileSizeInMB: (await fs.stat(photoPath)).size / 1024 / 1024,
       }
     } catch (error) {
-      console.error(`Error moving file: ${(error as Error).message}`)
+      console.error(`Error processing file: ${(error as Error).message}`)
     }
   }
 }
