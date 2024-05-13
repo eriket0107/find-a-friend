@@ -6,8 +6,8 @@ import sharp from 'sharp'
 
 type File = SavedMultipartFile
 
-export class PhotoHandler {
-  async handleFile({ id, file }: { id: string; file: File }) {
+export class FileHandler {
+  async saveFile({ id, file }: { id: string; file: File }) {
     const uniqueName = `${id}-${file.filename}`.split('.')[0]
     const photoPath = path.join('src/uploads', `${uniqueName}.webp`)
 
@@ -34,6 +34,16 @@ export class PhotoHandler {
       }
     } catch (error) {
       console.error(`Error processing file: ${(error as Error).message}`)
+    }
+  }
+
+  async readFile(path: string): Promise<Buffer | undefined> {
+    try {
+      const data = await fs.readFile(path)
+      return data
+    } catch (error) {
+      console.error('Error reading file:', error)
+      throw error
     }
   }
 }

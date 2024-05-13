@@ -1,7 +1,7 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 
-import { readFileToBuffer } from '@/helpers/fileReader'
+import { FileHandler } from '@/helpers/fileHandler'
 import { TypeOrmPetRepository } from '@/repositories/typeorm/typeorm-pet-repository'
 import { GetPetPhotoUseCase } from '@/use-cases/get-pet-photo-use-case'
 import { errorHandler } from '@/utils/errorHandler'
@@ -18,11 +18,12 @@ export const getPhoto = async (
 
   const petRepository = new TypeOrmPetRepository()
   const getPetPhotoUseCase = new GetPetPhotoUseCase(petRepository)
+  const fileHandler = new FileHandler()
 
   try {
     const { photo, type } = await getPetPhotoUseCase.execute({ petId })
 
-    const photoFile = await readFileToBuffer(photo)
+    const photoFile = await fileHandler.readFile(photo)
 
     return reply.status(200).type(type).send(photoFile)
   } catch (error) {

@@ -1,7 +1,7 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 
-import { PhotoHandler } from '@/helpers/photoHandler'
+import { FileHandler } from '@/helpers/fileHandler'
 import { TypeOrmPetRepository } from '@/repositories/typeorm/typeorm-pet-repository'
 import { PhotoUploadError } from '@/use-cases/errors/photo-upload-error'
 import { UploadPetPhotoUseCase } from '@/use-cases/upload-pet-photo-use-case'
@@ -27,14 +27,14 @@ export const uploadPhoto = async (
 
   const petRepository = new TypeOrmPetRepository()
   const uploadphotoUseCase = new UploadPetPhotoUseCase(petRepository)
-  const photoHandler = new PhotoHandler()
+  const fileHandler = new FileHandler()
 
   let photo
   try {
     for await (const fileChunk of files) {
       fileMetadataSchema.parse(fileChunk)
       try {
-        photo = await photoHandler.handleFile({ file: fileChunk, id: petId })
+        photo = await fileHandler.saveFile({ file: fileChunk, id: petId })
       } catch (error) {
         console.log(error)
       }
