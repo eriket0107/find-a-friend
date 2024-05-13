@@ -9,6 +9,7 @@ export const makePet = ({
   name = faker.person.firstName(),
   traits = ['Brincalhão', 'Fofo'],
   size = 'big',
+  photo = 'any_photo.webp',
 } = {}) => {
   return {
     id,
@@ -18,5 +19,6 @@ export const makePet = ({
     name,
     traits,
     size,
+    photo,
   }
 }
